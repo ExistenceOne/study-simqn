@@ -30,10 +30,10 @@
 
 **Interfaces:** Each example is a CLI producing one JSON object. CLI validators convert bounded numeric inputs or raise argparse.ArgumentTypeError.
 
-- [ ] Write subprocess tests for event order, measurement statistics/correlation, channel endpoints, two different routes, successful and unfinished distribution, invalid inputs and seeds.
-- [ ] Run unittest; confirm examples fail because scripts do not yet exist.
-- [ ] Implement scripts directly against installed qns 0.2.3 APIs.
-- [ ] Run unittest and all five default commands; confirm physical expectations.
+- [x] Write subprocess tests for event order, measurement statistics/correlation, channel endpoints, two different routes, successful and unfinished distribution, invalid inputs and seeds.
+- [x] Run unittest; confirm examples fail because scripts do not yet exist.
+- [x] Implement scripts directly against installed qns 0.2.3 APIs.
+- [x] Run unittest and all five default commands; confirm physical expectations.
 
 ## Task 2: Teaching material and publishing
 
@@ -41,7 +41,15 @@
 
 **Interfaces:** Document the CLIs from Task 1, using captured output from actual runs.
 
-- [ ] Explain every experiment, assumptions, units and parameter variations in Korean.
-- [ ] Add CI running the unittest suite on Python 3.11 and 3.12.
-- [ ] Review source and README, verify in a second clean environment.
-- [ ] Commit, fast-forward the user's repository main branch and verify remote commit.
+- [x] Explain every experiment, assumptions, units and parameter variations in Korean.
+- [x] Add CI running the unittest suite on Python 3.11 and 3.12.
+- [x] Review source and README, verify in a second clean environment.
+- [x] Commit, fast-forward the user's repository main branch and verify remote commit.
+
+## Verification record
+
+- Python 3.11.16 and 3.12.14: 9 unittest tests passed in each environment.
+- Ruff: all checks passed.
+- Five default examples and all README entanglement parameter variations executed successfully.
+- Independent code review found no blocking issues. Extremely small send-rate now returns a CLI error.
+- Initial implementation commit `1ab8751` published to GitHub main and remote SHA verified.
