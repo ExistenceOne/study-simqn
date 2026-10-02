@@ -1,0 +1,116 @@
+{
+  "01_events.py": {
+    "events": [
+      {
+        "time_seconds": 0.1,
+        "name": "first"
+      },
+      {
+        "time_seconds": 0.2,
+        "name": "second"
+      },
+      {
+        "time_seconds": 0.3,
+        "name": "third"
+      }
+    ]
+  },
+  "02_qubits.py": {
+    "shots": 1000,
+    "seed": 42,
+    "zero_state": {
+      "0": 1000,
+      "1": 0
+    },
+    "one_state": {
+      "0": 0,
+      "1": 1000
+    },
+    "plus_state": {
+      "0": 500,
+      "1": 500
+    },
+    "bell_pairs": {
+      "00": 507,
+      "01": 0,
+      "10": 0,
+      "11": 493
+    }
+  },
+  "03_channel_loss.py": {
+    "seed": 42,
+    "delay_seconds": 0.01,
+    "experiments": [
+      {
+        "drop_rate": 0,
+        "sent": 1000,
+        "received": 1000,
+        "lost": 0,
+        "observed_loss_rate": 0.0,
+        "first_arrival_seconds": 0.01,
+        "last_arrival_seconds": 1.009
+      },
+      {
+        "drop_rate": 0.3,
+        "sent": 1000,
+        "received": 681,
+        "lost": 319,
+        "observed_loss_rate": 0.319,
+        "first_arrival_seconds": 0.01,
+        "last_arrival_seconds": 1.009
+      },
+      {
+        "drop_rate": 0.7,
+        "sent": 1000,
+        "received": 288,
+        "lost": 712,
+        "observed_loss_rate": 0.712,
+        "first_arrival_seconds": 0.011,
+        "last_arrival_seconds": 1.008
+      },
+      {
+        "drop_rate": 1,
+        "sent": 1000,
+        "received": 0,
+        "lost": 1000,
+        "observed_loss_rate": 1.0,
+        "first_arrival_seconds": null,
+        "last_arrival_seconds": null
+      }
+    ]
+  },
+  "04_routing.py": {
+    "fewest_hops": {
+      "path": [
+        "Alice",
+        "Bob"
+      ],
+      "cost_hops": 1
+    },
+    "lowest_delay": {
+      "path": [
+        "Alice",
+        "Relay1",
+        "Relay2",
+        "Bob"
+      ],
+      "cost_seconds": 0.03
+    }
+  },
+  "05_entanglement_distribution.py": {
+    "seed": 42,
+    "nodes": 4,
+    "path": [
+      "n1",
+      "n2",
+      "n3",
+      "n4"
+    ],
+    "duration_seconds": 5,
+    "attempted": 26,
+    "completed": 25,
+    "acknowledged_at_source": 25,
+    "pairs_per_second": 5.0,
+    "mean_fidelity": 0.9703982222222224
+  }
+}
