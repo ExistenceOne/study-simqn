@@ -4,6 +4,9 @@
 **이벤트 → 큐비트 → 채널 → 라우팅 → 얽힘 분배** 순서로 진행하면 됨.
 양자 하드웨어나 외부 서비스 없이 로컬에서 실행 가능함.
 
+논문 **Fig. 3·5를 재실행하는 코드**도 [evaluations/README.md](evaluations/README.md)에 추가했음.
+전체·작은 실험 config, 반복별 CSV, 평균·SEM 그래프와 누락 설정 설명을 제공함.
+
 ## 빠르게 실행하기
 
 Python **3.11 또는 3.12** 권장함. 아래 명령은 저장소 루트에서 실행함.
@@ -220,6 +223,7 @@ python examples/05_entanglement_distribution.py --send-rate 10 --memory 50
 ## 테스트
 
 ```bash
+python -m pip install -r requirements-evaluation.txt
 python -m unittest discover -s tests -v
 ```
 

@@ -1,0 +1,92 @@
+{
+  "status": "complete",
+  "config": {
+    "name": "paper-stated-with-explicit-noise-assumption",
+    "seed": 2023,
+    "fig3": {
+      "duration": 10,
+      "repeats": 10,
+      "send_rate": 1000,
+      "lengths_km": [
+        1,
+        5,
+        10,
+        50,
+        100,
+        150
+      ],
+      "relays": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "relay_total_length_km": 100,
+      "loss_model": "paper-db",
+      "attenuation_db_km": 0.2,
+      "noise": "bit-flip",
+      "bit_flip_per_km": 0.001,
+      "light_speed_m_s": 299792458
+    },
+    "fig5": {
+      "nodes": 400,
+      "links": 1200,
+      "duration": 10,
+      "warmup": 0,
+      "repeats": 3,
+      "sessions": [
+        10,
+        20,
+        30,
+        40
+      ],
+      "send_rates": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100
+      ],
+      "memory": 50,
+      "fidelity": 0.99,
+      "coherence_time": 5,
+      "quantum_delay": 0.05,
+      "classical_delay": 0.05,
+      "quantum_bandwidth": 0,
+      "classical_bandwidth": 0
+    }
+  },
+  "figures": [
+    "3"
+  ],
+  "assumptions": {
+    "reproduction": "Source-informed rerun; not an exact numerical reproduction or curve fit.",
+    "fig3_metric": "Minimum link correct-sifted bits / duration. Historical diagnostic; not secure secret key rate or an implemented relay transport.",
+    "fig3_legacy_source": "QNLab-USTC/SimQN@3902842032db74e14a10ea72360264697a79fe3a:qns/network/protocol/bb84.py",
+    "fig3_loss": "Paper specifies 0.2 dB/km; public examples instead used exp(-L_km/50). Config selects the convention.",
+    "fig3_noise": "Historical public code uses collective rotation. Paper-stated preset assumes p_X=min(1, bit_flip_per_km*L_km); coefficient is not from the paper.",
+    "fig3_relays": "Equal hop lengths, unlimited bandwidth, min link count; no extra relay processing delay. Duration comes from the public examples.",
+    "fig5_missing": "Exact node/link count, delays, bandwidth, duration, seeds and repeats are not fully specified in the paper. They are explicit configurable assumptions.",
+    "fig5_classical": "All-pairs classical channels for direct success notification in the built-in protocol; quantum graph is random.",
+    "fig5_sessions": "Unique endpoints, disjoint source/destination pairs; prefixes shared across session counts within a trial.",
+    "fig5_metric": "Destination completions in [warmup,duration], divided by duration-warmup. Report total and per-session pair/s plus mean counts; paper throughput normalization unclear.",
+    "fig5_quality": "Protocol completions are counted without a fidelity threshold. Mean fidelity is snapshotted at destination completion, before later source ACK mutations.",
+    "uncertainty": "Sample standard deviation and SEM across independent seeds. Single-trial uncertainty is null, not a zero-error estimate."
+  },
+  "versions": {
+    "python": "3.11.16",
+    "qns": "0.2.3",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "matplotlib": "3.11.2"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "started_utc": "20261004T135509001492Z",
+  "wall_seconds": 156.99949112499598
+}

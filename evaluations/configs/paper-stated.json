@@ -1,0 +1,33 @@
+{
+  "name": "paper-stated-with-explicit-noise-assumption",
+  "seed": 2023,
+  "fig3": {
+    "duration": 10,
+    "repeats": 10,
+    "send_rate": 1000,
+    "lengths_km": [1, 5, 10, 50, 100, 150],
+    "relays": [0, 1, 2, 3, 4],
+    "relay_total_length_km": 100,
+    "loss_model": "paper-db",
+    "attenuation_db_km": 0.2,
+    "noise": "bit-flip",
+    "bit_flip_per_km": 0.001,
+    "light_speed_m_s": 299792458
+  },
+  "fig5": {
+    "nodes": 400,
+    "links": 1200,
+    "duration": 10,
+    "warmup": 0,
+    "repeats": 3,
+    "sessions": [10, 20, 30, 40],
+    "send_rates": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "memory": 50,
+    "fidelity": 0.99,
+    "coherence_time": 5,
+    "quantum_delay": 0.05,
+    "classical_delay": 0.05,
+    "quantum_bandwidth": 0,
+    "classical_bandwidth": 0
+  }
+}
