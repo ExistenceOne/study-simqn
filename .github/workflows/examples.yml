@@ -23,3 +23,25 @@ jobs:
         run: python -m pip install -r requirements-evaluation.txt
       - name: Check examples
         run: python -m unittest discover -s tests -v
+
+  cython:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements-evaluation.txt -r requirements-cython.txt
+      - name: Build isolated Cython core
+        run: python scripts/build_cython_core.py --output "$RUNNER_TEMP/simqn-cython"
+      - name: Verify compiled benchmark and examples
+        env:
+          PYTHONPATH: ${{ runner.temp }}/simqn-cython
+        run: |
+          python examples/15_cython_acceleration.py --events 1000 --repeats 2 --require-compiled
+          python -m unittest discover -s tests -v

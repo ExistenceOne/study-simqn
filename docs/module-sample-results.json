@@ -1,0 +1,1104 @@
+{
+  "metadata": {
+    "date": "2026-10-05",
+    "python": "3.11.16 (main, Aug 25 2026, 13:50:51) [Clang 22.1.3 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "versions": {
+      "qns": "0.2.3",
+      "numpy": "2.4.6",
+      "pandas": "3.0.6"
+    },
+    "note": "Default CLI runs; timing/path fields depend on host"
+  },
+  "examples": {
+    "06_qubit_backend.py": {
+      "shots": 1000,
+      "seed": 42,
+      "flip_probability": 0.2,
+      "mixed_density_matrix": [
+        [
+          0.5,
+          0.0
+        ],
+        [
+          0.0,
+          0.5
+        ]
+      ],
+      "ideal_zero": {
+        "0": 1000,
+        "1": 0
+      },
+      "noisy_zero": {
+        "0": 797,
+        "1": 203
+      },
+      "plus": {
+        "0": 512,
+        "1": 488
+      },
+      "mixed": {
+        "0": 494,
+        "1": 506
+      }
+    },
+    "07_entanglement_backend.py": {
+      "seed": 42,
+      "initial_fidelity": 0.9,
+      "storage_time_seconds": 1,
+      "decoherence_rate_per_second": 0.2,
+      "stored_fidelity": 0.7821749895006882,
+      "swapped_fidelity": 0.8133333333333334,
+      "swap_inputs_consumed": true,
+      "distillation_attempts": 1000,
+      "distillation_successes": 870,
+      "distillation_success_fraction": 0.87,
+      "mean_distilled_fidelity": 0.9263959390862945
+    },
+    "08_entanglement_to_qubits.py": {
+      "seed": 42,
+      "shots_per_condition": 1000,
+      "experiments": [
+        {
+          "input_fidelity": 0.25,
+          "bell_overlap": 0.24999999999999994,
+          "shared_state": true,
+          "entanglement_consumed": true,
+          "density_matrix_real": [
+            [
+              0.25,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.25,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.25,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.25
+            ]
+          ],
+          "density_matrix_imag": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "expected_z_agreement": 0.5,
+          "observed_z_agreement": 0.495,
+          "z_counts": {
+            "00": 241,
+            "01": 263,
+            "10": 242,
+            "11": 254
+          },
+          "after_x_counts": {
+            "00": 258,
+            "01": 240,
+            "10": 254,
+            "11": 248
+          }
+        },
+        {
+          "input_fidelity": 0.9,
+          "bell_overlap": 0.8999999999999997,
+          "shared_state": true,
+          "entanglement_consumed": true,
+          "density_matrix_real": [
+            [
+              0.46666666666666656,
+              0.0,
+              0.0,
+              0.43333333333333324
+            ],
+            [
+              0.0,
+              0.033333333333333326,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.033333333333333326,
+              0.0
+            ],
+            [
+              0.43333333333333324,
+              0.0,
+              0.0,
+              0.46666666666666656
+            ]
+          ],
+          "density_matrix_imag": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "expected_z_agreement": 0.9333333333333333,
+          "observed_z_agreement": 0.923,
+          "z_counts": {
+            "00": 468,
+            "01": 44,
+            "10": 33,
+            "11": 455
+          },
+          "after_x_counts": {
+            "00": 35,
+            "01": 475,
+            "10": 465,
+            "11": 25
+          }
+        },
+        {
+          "input_fidelity": 1,
+          "bell_overlap": 0.9999999999999997,
+          "shared_state": true,
+          "entanglement_consumed": true,
+          "density_matrix_real": [
+            [
+              0.4999999999999999,
+              0.0,
+              0.0,
+              0.4999999999999999
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.4999999999999999,
+              0.0,
+              0.0,
+              0.4999999999999999
+            ]
+          ],
+          "density_matrix_imag": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "expected_z_agreement": 1.0,
+          "observed_z_agreement": 1.0,
+          "z_counts": {
+            "00": 525,
+            "01": 0,
+            "10": 0,
+            "11": 475
+          },
+          "after_x_counts": {
+            "00": 0,
+            "01": 474,
+            "10": 526,
+            "11": 0
+          }
+        }
+      ]
+    },
+    "09_topology_generators.py": {
+      "seed": 42,
+      "linear": {
+        "nodes": 9,
+        "links": 8,
+        "connected": true,
+        "degrees": {
+          "n1": 1,
+          "n2": 2,
+          "n3": 2,
+          "n4": 2,
+          "n5": 2,
+          "n6": 2,
+          "n7": 2,
+          "n8": 2,
+          "n9": 1
+        },
+        "edges": [
+          {
+            "nodes": [
+              "n1",
+              "n2"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n2",
+              "n3"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n3",
+              "n4"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n4",
+              "n5"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n5",
+              "n6"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n6",
+              "n7"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n7",
+              "n8"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n8",
+              "n9"
+            ],
+            "length_m": 0.0
+          }
+        ]
+      },
+      "grid": {
+        "nodes": 9,
+        "links": 12,
+        "connected": true,
+        "degrees": {
+          "n1": 2,
+          "n2": 3,
+          "n3": 2,
+          "n4": 3,
+          "n5": 4,
+          "n6": 3,
+          "n7": 2,
+          "n8": 3,
+          "n9": 2
+        },
+        "edges": [
+          {
+            "nodes": [
+              "n1",
+              "n2"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n1",
+              "n4"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n2",
+              "n3"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n2",
+              "n5"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n3",
+              "n6"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n4",
+              "n5"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n4",
+              "n7"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n5",
+              "n6"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n5",
+              "n8"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n6",
+              "n9"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n7",
+              "n8"
+            ],
+            "length_m": 0.0
+          },
+          {
+            "nodes": [
+              "n8",
+              "n9"
+            ],
+            "length_m": 0.0
+          }
+        ]
+      },
+      "waxman": {
+        "nodes": 9,
+        "links": 13,
+        "connected": true,
+        "degrees": {
+          "n1": 2,
+          "n2": 2,
+          "n3": 1,
+          "n4": 4,
+          "n5": 5,
+          "n6": 4,
+          "n7": 2,
+          "n8": 3,
+          "n9": 3
+        },
+        "edges": [
+          {
+            "nodes": [
+              "n1",
+              "n3"
+            ],
+            "length_m": 468.8200249469717
+          },
+          {
+            "nodes": [
+              "n1",
+              "n6"
+            ],
+            "length_m": 332.26541203850786
+          },
+          {
+            "nodes": [
+              "n2",
+              "n4"
+            ],
+            "length_m": 249.37467341394773
+          },
+          {
+            "nodes": [
+              "n2",
+              "n5"
+            ],
+            "length_m": 1007.5639689697482
+          },
+          {
+            "nodes": [
+              "n4",
+              "n5"
+            ],
+            "length_m": 857.5120263529955
+          },
+          {
+            "nodes": [
+              "n4",
+              "n6"
+            ],
+            "length_m": 595.7565565595944
+          },
+          {
+            "nodes": [
+              "n4",
+              "n9"
+            ],
+            "length_m": 1004.1320917610557
+          },
+          {
+            "nodes": [
+              "n5",
+              "n6"
+            ],
+            "length_m": 267.2865469931917
+          },
+          {
+            "nodes": [
+              "n5",
+              "n8"
+            ],
+            "length_m": 370.38902765842806
+          },
+          {
+            "nodes": [
+              "n5",
+              "n9"
+            ],
+            "length_m": 285.9923784298413
+          },
+          {
+            "nodes": [
+              "n6",
+              "n7"
+            ],
+            "length_m": 142.92544851431592
+          },
+          {
+            "nodes": [
+              "n7",
+              "n8"
+            ],
+            "length_m": 217.24407349943274
+          },
+          {
+            "nodes": [
+              "n8",
+              "n9"
+            ],
+            "length_m": 350.0309253667538
+          }
+        ]
+      }
+    },
+    "10_node_entities.py": {
+      "nodes": {
+        "Alice": {
+          "memories": [
+            "Alice-memory"
+          ],
+          "operators": [
+            "Alice-operator"
+          ],
+          "qchannels": [
+            "quantum"
+          ],
+          "cchannels": [
+            "classical"
+          ],
+          "apps": [
+            "AckApp"
+          ]
+        },
+        "Bob": {
+          "memories": [
+            "Bob-memory"
+          ],
+          "operators": [
+            "Bob-operator"
+          ],
+          "qchannels": [
+            "quantum"
+          ],
+          "cchannels": [
+            "classical"
+          ],
+          "apps": [
+            "ReceiverApp"
+          ]
+        }
+      },
+      "quantum_arrival_seconds": 0.02,
+      "memory_usage_after_write": 1,
+      "memory_usage_after_read": 0,
+      "measurement": 1,
+      "operation_response_seconds": 0.03,
+      "ack": {
+        "bit": 1
+      },
+      "ack_arrival_seconds": 0.04
+    },
+    "11_classical_apps.py": {
+      "sent": 3,
+      "received": [
+        {
+          "time_seconds": 0.02,
+          "message": {
+            "sequence": 0,
+            "payload": "hello"
+          }
+        },
+        {
+          "time_seconds": 0.03,
+          "message": {
+            "sequence": 1,
+            "payload": "hello"
+          }
+        },
+        {
+          "time_seconds": 0.04,
+          "message": {
+            "sequence": 2,
+            "payload": "hello"
+          }
+        }
+      ],
+      "packet_trace": [
+        {
+          "node": "n2",
+          "time_seconds": 0.01,
+          "sequence": 0
+        },
+        {
+          "node": "n2",
+          "time_seconds": 0.02,
+          "sequence": 1
+        },
+        {
+          "node": "n3",
+          "time_seconds": 0.02,
+          "sequence": 0
+        },
+        {
+          "node": "n2",
+          "time_seconds": 0.03,
+          "sequence": 2
+        },
+        {
+          "node": "n3",
+          "time_seconds": 0.03,
+          "sequence": 1
+        },
+        {
+          "node": "n3",
+          "time_seconds": 0.04,
+          "sequence": 2
+        }
+      ],
+      "apps": {
+        "n1": [
+          "PacketObserver",
+          "ClassicPacketForwardApp",
+          "DestinationApp"
+        ],
+        "n2": [
+          "PacketObserver",
+          "ClassicPacketForwardApp",
+          "DestinationApp"
+        ],
+        "n3": [
+          "PacketObserver",
+          "ClassicPacketForwardApp",
+          "DestinationApp"
+        ]
+      }
+    },
+    "12_bb84_apps.py": {
+      "seed": 42,
+      "duration_seconds": 5,
+      "send_rate_hz": 1000,
+      "sender_app": "BB84SendApp",
+      "receiver_app": "BB84RecvApp",
+      "sender_key_blocks": 2,
+      "receiver_key_blocks": 2,
+      "common_key_blocks": 2,
+      "common_blocks_equal": true,
+      "matched_key_bits": 1024,
+      "sender_remaining_raw_bits": 436,
+      "receiver_remaining_raw_bits": 436
+    },
+    "13_request_management.py": {
+      "seed": 42,
+      "nodes": 8,
+      "manual": [
+        {
+          "src": "n1",
+          "dest": "n8",
+          "attr": {
+            "send_rate": 5,
+            "kind": "manual"
+          }
+        }
+      ],
+      "manual_replaced": true,
+      "unique_random": [
+        {
+          "src": "n7",
+          "dest": "n4",
+          "attr": {
+            "send_rate": 10,
+            "kind": "unique"
+          }
+        },
+        {
+          "src": "n3",
+          "dest": "n8",
+          "attr": {
+            "send_rate": 10,
+            "kind": "unique"
+          }
+        },
+        {
+          "src": "n6",
+          "dest": "n5",
+          "attr": {
+            "send_rate": 10,
+            "kind": "unique"
+          }
+        }
+      ],
+      "unique_node_request_counts": {
+        "n1": 0,
+        "n2": 0,
+        "n3": 1,
+        "n4": 1,
+        "n5": 1,
+        "n6": 1,
+        "n7": 1,
+        "n8": 1
+      },
+      "overlay_random": [
+        {
+          "src": "n2",
+          "dest": "n8",
+          "attr": {
+            "send_rate": 10,
+            "kind": "overlay"
+          }
+        },
+        {
+          "src": "n4",
+          "dest": "n6",
+          "attr": {
+            "send_rate": 10,
+            "kind": "overlay"
+          }
+        },
+        {
+          "src": "n6",
+          "dest": "n2",
+          "attr": {
+            "send_rate": 10,
+            "kind": "overlay"
+          }
+        },
+        {
+          "src": "n8",
+          "dest": "n4",
+          "attr": {
+            "send_rate": 10,
+            "kind": "overlay"
+          }
+        },
+        {
+          "src": "n5",
+          "dest": "n1",
+          "attr": {
+            "send_rate": 10,
+            "kind": "overlay"
+          }
+        },
+        {
+          "src": "n4",
+          "dest": "n2",
+          "attr": {
+            "send_rate": 10,
+            "kind": "overlay"
+          }
+        },
+        {
+          "src": "n6",
+          "dest": "n5",
+          "attr": {
+            "send_rate": 10,
+            "kind": "overlay"
+          }
+        },
+        {
+          "src": "n4",
+          "dest": "n1",
+          "attr": {
+            "send_rate": 10,
+            "kind": "overlay"
+          }
+        }
+      ],
+      "overlay_endpoint_reuses": 10
+    },
+    "14_data_collector.py": {
+      "duration_seconds": 1,
+      "period_seconds": 0.25,
+      "records": [
+        {
+          "time": 0.0,
+          "count": 0,
+          "completed_per_second": 0.0
+        },
+        {
+          "time": 0.25,
+          "count": 1,
+          "completed_per_second": 4.0
+        },
+        {
+          "time": 0.5,
+          "count": 2,
+          "completed_per_second": 4.0
+        },
+        {
+          "time": 0.75,
+          "count": 3,
+          "completed_per_second": 4.0
+        },
+        {
+          "time": 1.0,
+          "count": 3,
+          "completed_per_second": 3.0
+        }
+      ],
+      "csv_path": null
+    },
+    "15_cython_acceleration.py": {
+      "events": 10000,
+      "repeats": 3,
+      "invoked": 10000,
+      "checksum": 49995000,
+      "modules": {
+        "qns.simulator.ts": {
+          "path": "/Users/jyj/git/study-simqn/.venv/lib/python3.11/site-packages/qns/simulator/ts.py",
+          "compiled_extension": false
+        },
+        "qns.simulator.pool": {
+          "path": "/Users/jyj/git/study-simqn/.venv/lib/python3.11/site-packages/qns/simulator/pool.py",
+          "compiled_extension": false
+        },
+        "qns.simulator.simulator": {
+          "path": "/Users/jyj/git/study-simqn/.venv/lib/python3.11/site-packages/qns/simulator/simulator.py",
+          "compiled_extension": false
+        }
+      },
+      "all_core_modules_compiled": false,
+      "wall_seconds": [
+        0.06610508300946094,
+        0.08329466698342003,
+        0.07998387500992976
+      ],
+      "median_wall_seconds": 0.07998387500992976,
+      "events_per_wall_second": 125025.20037643249
+    },
+    "16_parallel_simulations.py": {
+      "cores": 2,
+      "start_method": "spawn",
+      "serial_matches_parallel": true,
+      "raw": [
+        {
+          "flip_probability": 0.0,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 0,
+          "_group": 0,
+          "_id": 0,
+          "experiment_seed": 42,
+          "ones": 0,
+          "observed_flip_fraction": 0.0
+        },
+        {
+          "flip_probability": 0.0,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 1,
+          "_group": 0,
+          "_id": 1,
+          "experiment_seed": 43,
+          "ones": 0,
+          "observed_flip_fraction": 0.0
+        },
+        {
+          "flip_probability": 0.0,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 2,
+          "_group": 0,
+          "_id": 2,
+          "experiment_seed": 44,
+          "ones": 0,
+          "observed_flip_fraction": 0.0
+        },
+        {
+          "flip_probability": 0.2,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 0,
+          "_group": 1,
+          "_id": 3,
+          "experiment_seed": 45,
+          "ones": 195,
+          "observed_flip_fraction": 0.195
+        },
+        {
+          "flip_probability": 0.2,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 1,
+          "_group": 1,
+          "_id": 4,
+          "experiment_seed": 46,
+          "ones": 194,
+          "observed_flip_fraction": 0.194
+        },
+        {
+          "flip_probability": 0.2,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 2,
+          "_group": 1,
+          "_id": 5,
+          "experiment_seed": 47,
+          "ones": 220,
+          "observed_flip_fraction": 0.22
+        },
+        {
+          "flip_probability": 1.0,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 0,
+          "_group": 2,
+          "_id": 6,
+          "experiment_seed": 48,
+          "ones": 1000,
+          "observed_flip_fraction": 1.0
+        },
+        {
+          "flip_probability": 1.0,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 1,
+          "_group": 2,
+          "_id": 7,
+          "experiment_seed": 49,
+          "ones": 1000,
+          "observed_flip_fraction": 1.0
+        },
+        {
+          "flip_probability": 1.0,
+          "shots": 1000,
+          "seed": 42,
+          "_repeat": 2,
+          "_group": 2,
+          "_id": 8,
+          "experiment_seed": 50,
+          "ones": 1000,
+          "observed_flip_fraction": 1.0
+        }
+      ],
+      "summary": [
+        {
+          "flip_probability": 0.0,
+          "shots": 1000,
+          "seed": 42,
+          "experiment_seed_mean": 43.0,
+          "ones_mean": 0.0,
+          "observed_flip_fraction_mean": 0.0,
+          "experiment_seed_std": 1.0,
+          "ones_std": 0.0,
+          "observed_flip_fraction_std": 0.0
+        },
+        {
+          "flip_probability": 0.2,
+          "shots": 1000,
+          "seed": 42,
+          "experiment_seed_mean": 46.0,
+          "ones_mean": 203.0,
+          "observed_flip_fraction_mean": 0.20299999999999999,
+          "experiment_seed_std": 1.0,
+          "ones_std": 14.730919862656235,
+          "observed_flip_fraction_std": 0.014730919862656228
+        },
+        {
+          "flip_probability": 1.0,
+          "shots": 1000,
+          "seed": 42,
+          "experiment_seed_mean": 49.0,
+          "ones_mean": 1000.0,
+          "observed_flip_fraction_mean": 1.0,
+          "experiment_seed_std": 1.0,
+          "ones_std": 0.0,
+          "observed_flip_fraction_std": 0.0
+        }
+      ]
+    }
+  },
+  "cython_comparison": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "events": 100000,
+    "repeats": 5,
+    "pure": {
+      "events": 100000,
+      "repeats": 5,
+      "invoked": 100000,
+      "checksum": 4999950000,
+      "modules": {
+        "qns.simulator.ts": {
+          "path": "/tmp/study-simqn-module-cython/lib/python3.12/site-packages/qns/simulator/ts.py",
+          "compiled_extension": false
+        },
+        "qns.simulator.pool": {
+          "path": "/tmp/study-simqn-module-cython/lib/python3.12/site-packages/qns/simulator/pool.py",
+          "compiled_extension": false
+        },
+        "qns.simulator.simulator": {
+          "path": "/tmp/study-simqn-module-cython/lib/python3.12/site-packages/qns/simulator/simulator.py",
+          "compiled_extension": false
+        }
+      },
+      "all_core_modules_compiled": false,
+      "wall_seconds": [
+        1.0348730830010027,
+        1.3161557089770213,
+        1.317321208975045,
+        1.366837207984645,
+        1.40489004200208
+      ],
+      "median_wall_seconds": 1.317321208975045,
+      "events_per_wall_second": 75911.62984296442
+    },
+    "compiled": {
+      "events": 100000,
+      "repeats": 5,
+      "invoked": 100000,
+      "checksum": 4999950000,
+      "modules": {
+        "qns.simulator.ts": {
+          "path": "/tmp/study-simqn-compiled-core-20261005/qns/simulator/ts.cpython-312-darwin.so",
+          "compiled_extension": true
+        },
+        "qns.simulator.pool": {
+          "path": "/tmp/study-simqn-compiled-core-20261005/qns/simulator/pool.cpython-312-darwin.so",
+          "compiled_extension": true
+        },
+        "qns.simulator.simulator": {
+          "path": "/tmp/study-simqn-compiled-core-20261005/qns/simulator/simulator.cpython-312-darwin.so",
+          "compiled_extension": true
+        }
+      },
+      "all_core_modules_compiled": true,
+      "wall_seconds": [
+        1.0357418329804204,
+        1.3083165000134613,
+        1.3624650000128895,
+        1.4119962920085527,
+        1.427228415996069
+      ],
+      "median_wall_seconds": 1.3624650000128895,
+      "events_per_wall_second": 73396.38082376719
+    },
+    "observed_speedup": 0.966866091211578,
+    "build": {
+      "qns_version": "0.2.3",
+      "cython_version": "3.1.3",
+      "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+      "source_package": "/tmp/study-simqn-module-cython/lib/python3.12/site-packages/qns",
+      "output": "/private/tmp/study-simqn-compiled-core-20261005",
+      "status": "complete",
+      "compiled_modules": [
+        "qns.simulator.ts",
+        "qns.simulator.pool",
+        "qns.simulator.simulator"
+      ],
+      "approach": "Cython compile installed .py sources; historical .pyx not used"
+    }
+  }
+}

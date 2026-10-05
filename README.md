@@ -7,6 +7,10 @@
 논문 **Fig. 3·5를 재실행하는 코드**도 [evaluations/README.md](evaluations/README.md)에 추가했음.
 전체·작은 실험 config, 반복별 CSV, 평균·SEM 그래프와 누락 설정 설명을 제공함.
 
+**06–16번 모듈 예제**는 [docs/module-examples.md](docs/module-examples.md)에 정리했음.
+Physical backend와 `to_qubits()` 변환부터 노드 entity·앱 설치, 토폴로지,
+요청 관리, 데이터 수집, Cython 빌드와 병렬 실험까지 직접 실행할 수 있음.
+
 ## 빠르게 실행하기
 
 Python **3.11 또는 3.12** 권장함. 아래 명령은 저장소 루트에서 실행함.
@@ -46,11 +50,24 @@ NumPy와 Pandas도 `requirements.txt`에 버전 고정했음.
 | 03 | [채널 손실](examples/03_channel_loss.py) | 두 노드 연결, 수신 앱, 지연·손실 | `python examples/03_channel_loss.py` |
 | 04 | [라우팅](examples/04_routing.py) | 최소 홉과 최소 지연 경로 | `python examples/04_routing.py` |
 | 05 | [얽힘 분배](examples/05_entanglement_distribution.py) | 토폴로지, 메모리, 내장 프로토콜 | `python examples/05_entanglement_distribution.py` |
+| 06 | [Qubit backend](examples/06_qubit_backend.py) | 밀도행렬, QubitFactory, 측정 잡음 | `python examples/06_qubit_backend.py` |
+| 07 | [Entanglement backend](examples/07_entanglement_backend.py) | Werner 저장·교환·정제 | `python examples/07_entanglement_backend.py` |
+| 08 | [Entanglement → qubit](examples/08_entanglement_to_qubits.py) | to_qubits, 공동 상태, 변환 후 게이트 | `python examples/08_entanglement_to_qubits.py` |
+| 09 | [토폴로지 생성](examples/09_topology_generators.py) | linear·grid·Waxman | `python examples/09_topology_generators.py` |
+| 10 | [노드 entity](examples/10_node_entities.py) | memory·operator·양자/고전 채널 설치 | `python examples/10_node_entities.py` |
+| 11 | [고전 forwarding 앱](examples/11_classical_apps.py) | ClassicPacketForwardApp 설치·패킷 전달 | `python examples/11_classical_apps.py` |
+| 12 | [BB84 앱](examples/12_bb84_apps.py) | BB84SendApp·BB84RecvApp 설치·후처리 | `python examples/12_bb84_apps.py` |
+| 13 | [요청 관리](examples/13_request_management.py) | 수동·무작위 요청, endpoint 중복 | `python examples/13_request_management.py` |
+| 14 | [데이터 수집](examples/14_data_collector.py) | Monitor 주기 관측·CSV | `python examples/14_data_collector.py` |
+| 15 | [Cython](examples/15_cython_acceleration.py) | 컴파일 확인·이벤트 벤치마크 | `python examples/15_cython_acceleration.py` |
+| 16 | [병렬 실험](examples/16_parallel_simulations.py) | MPSimulations·반복 집계 | `python examples/16_parallel_simulations.py` |
 
 결과는 JSON으로 출력됨. 기본 설정의 실제 실행 결과는
 [docs/sample-results.json](docs/sample-results.json)에 저장했음.
 시간 단위는 초, `seed` 기본값은 42임.
 CLI 옵션이 있는 02·03·05는 `--help`로 옵션 확인 가능함.
+06–16의 옵션도 각각 `--help`로 확인 가능함. 기본 의존성은 동일하며
+15번을 실제 Cython 코어로 실행할 때만 [추가 빌드 환경](docs/cython-build.md)이 필요함.
 
 ## 01. 이벤트 예약과 취소
 
