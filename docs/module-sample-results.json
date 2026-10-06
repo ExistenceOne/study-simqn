@@ -8,7 +8,13 @@
       "numpy": "2.4.6",
       "pandas": "3.0.6"
     },
-    "note": "Default CLI runs; timing/path fields depend on host"
+    "note": "Default CLI runs; timing/path fields depend on host",
+    "example_updates": {
+      "07_entanglement_backend.py": {
+        "date": "2026-10-06",
+        "note": "Added Bell and Mixed models; native Mixed swapping mismatch reported"
+      }
+    }
   },
   "examples": {
     "06_qubit_backend.py": {
@@ -53,7 +59,64 @@
       "distillation_attempts": 1000,
       "distillation_successes": 870,
       "distillation_success_fraction": 0.87,
-      "mean_distilled_fidelity": 0.9263959390862945
+      "mean_distilled_fidelity": 0.9263959390862945,
+      "bell": {
+        "initial_fidelity": 1.0,
+        "stored_fidelity": 1.0,
+        "p_swap": 0.5,
+        "swap_attempts": 1000,
+        "swap_successes": 486,
+        "swap_success_fraction": 0.486,
+        "mean_successful_swap_fidelity": 1.0,
+        "swap_inputs_consumed": true,
+        "distilled_fidelity": 1.0,
+        "distillation_inputs_consumed": true
+      },
+      "mixed": {
+        "weight_order": [
+          "Phi+",
+          "Psi+",
+          "Psi-",
+          "Phi-"
+        ],
+        "initial_weights": [
+          0.9,
+          0.05,
+          0.03,
+          0.02
+        ],
+        "stored_weights": [
+          0.7821749895006882,
+          0.08625384938440361,
+          0.06987923432284399,
+          0.06169192679206417
+        ],
+        "swapped_weights": [
+          0.8145330797717945,
+          0.0912821539385447,
+          0.05605044540086077,
+          0.03813432088879992
+        ],
+        "reference_swapped_weights": [
+          0.8138,
+          0.09120000000000002,
+          0.056,
+          0.03900000000000001
+        ],
+        "swap_max_abs_error": 0.000865679111200085,
+        "swap_matches_bell_convolution": false,
+        "swap_inputs_consumed": true,
+        "distillation_attempts": 1000,
+        "distillation_successes": 844,
+        "distillation_success_fraction": 0.844,
+        "mean_distilled_fidelity": 0.950281425891182,
+        "mean_distilled_weights": [
+          0.950281425891182,
+          0.003986866791744841,
+          0.003517823639774859,
+          0.042213883677298315
+        ]
+      }
     },
     "08_entanglement_to_qubits.py": {
       "seed": 42,

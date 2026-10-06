@@ -27,6 +27,8 @@ qns 0.2.3의 `Qubit.measure()`는 오류 함수에 `decoherence_rate` 키워드�
 ```bash
 python examples/07_entanglement_backend.py
 python examples/07_entanglement_backend.py --fidelity 0.95 --storage-time 5 --decoherence-rate 0.2
+python examples/07_entanglement_backend.py --bell-swap-probability 0.3
+python examples/07_entanglement_backend.py --mixed-weights 0.9 0.05 0.03 0.02
 ```
 
 Werner 쌍의 초기 충실도 0.9를 기본값으로 사용함.
@@ -39,6 +41,34 @@ Werner 쌍의 초기 충실도 0.9를 기본값으로 사용함.
 교환·정제는 입력 두 쌍을 소비하므로 매번 새 객체를 생성함.
 낮은 초기 충실도에서 정제가 항상 좋아지는 것은 아니며, 프로토콜 성공 수가
 얽힘 존재나 실제 장비 성능을 보장하는 지표도 아님.
+
+동일 실행에서 `bell`과 `mixed` 결과도 출력함. 기존 최상위 필드는 Werner 결과임.
+`--fidelity`는 Werner에만, `--bell-swap-probability`는 Bell 교환에만,
+`--mixed-weights A B C D`는 Mixed에만 적용됨.
+모델별 난수 seed는 각각 `seed`, `seed+1`, `seed+2`를 32bit 범위로 감싼 값임.
+
+| 모델 | 초기 상태·저장 | 교환·정제 |
+| --- | --- | --- |
+| `BellStateEntanglement` | 이상적 Bell, 충실도 1; 기본 저장 오류 없음 | 이 예제의 p_swap=0.5로 확률적 교환; 새 이상적 입력의 정제는 충실도 1 |
+| `WernerStateEntanglement` | 충실도 한 값, 균일한 세 오류 성분; 지수 감쇠 | Werner 교환식과 확률적 정제 |
+| `MixedStateEntanglement` | 네 Bell 가중치; 이 예제는 0.9/0.05/0.03/0.02; 각 값이 0.25로 감쇠 | 네 가중치의 교환과 확률적 정제 |
+
+Mixed의 순서는 `Phi+`, `Psi+`, `Psi-`, `Phi-`이며 각 가중치는 0–1, 합은 1이어야 함.
+라이브러리의 Bell 생성자 기본 p_swap은 1이며, 예제에서 성공·실패를 관찰하도록 0.5로 설정했음.
+생성자의 자동 정규화로 잘못된 확률 입력이 숨겨지지 않게 CLI에서 합을 검사함.
+Bell 교환은 실패해도 객체를 반환하므로 `is_decoherenced`를 확인해 성공 수를 셈.
+성공한 Bell 출력의 충실도는 1이고, 성공이 없으면 평균은 `null`임.
+교환·정제에 소비된 입력을 재사용하지 않고 모든 조건에서 새 쌍을 만듦.
+
+**qns 0.2.3 Mixed 교환식 주의:** 설치 소스의 출력 d 식에 `c1*d2`가 들어가지만,
+Bell 대각 상태 합성식의 해당 항은 `c1*b2`임.
+비대칭 가중치에서는 정규화된 출력도 기준값과 달라짐.
+기본 입력의 기준 교환 가중치는 0.8138/0.0912/0.056/0.039임.
+예제는 라이브러리를 수정하지 않고 `swapped_weights`, `reference_swapped_weights`,
+`swap_max_abs_error`, `swap_matches_bell_convolution`을 함께 출력함.
+마지막 값이 `false`이면 내장 교환 결과를 정확한 물리 결과로 해석하면 안 됨.
+Werner형 대칭 가중치에서는 이 문제의 차이가 나타나지 않을 수 있음.
+Mixed는 Bell 대각 상태 모델이며 임의의 두 큐비트 밀도행렬 전체를 나타내지는 않음.
 
 ## 08. Entanglement → qubit backend
 

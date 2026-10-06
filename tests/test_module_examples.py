@@ -38,6 +38,38 @@ class ModuleExamplesTests(unittest.TestCase):
         self.assertGreater(r['distillation_successes'], 0)
         self.assertGreater(r['mean_distilled_fidelity'], 0.9)
 
+    def test_bell_swap_extremes_and_ideal_storage(self):
+        for probability, successes in [(0, 0), (1, 100)]:
+            r = self.result('07_entanglement_backend.py', '--shots', 100,
+                            '--bell-swap-probability', probability)['bell']
+            self.assertEqual(r['swap_successes'], successes)
+            self.assertEqual(r['stored_fidelity'], 1)
+            self.assertTrue(r['swap_inputs_consumed'])
+            self.assertEqual(r['mean_successful_swap_fidelity'], 1 if successes else None)
+            self.assertEqual(r['distilled_fidelity'], 1)
+
+    def test_mixed_weights_storage_and_distillation(self):
+        r = self.result('07_entanglement_backend.py', '--shots', 100,
+                        '--mixed-weights', 0.9, 0.05, 0.03, 0.02)['mixed']
+        self.assertEqual(r['initial_weights'], [0.9, 0.05, 0.03, 0.02])
+        self.assertAlmostEqual(sum(r['stored_weights']), 1)
+        self.assertLess(r['stored_weights'][0], 0.9)
+        self.assertGreater(r['stored_weights'][1], 0.05)
+        self.assertTrue(r['swap_inputs_consumed'])
+        for actual, expected in zip(r['reference_swapped_weights'], [0.8138, 0.0912, 0.056, 0.039]):
+            self.assertAlmostEqual(actual, expected)
+        self.assertGreater(r['distillation_successes'], 0)
+        self.assertAlmostEqual(r['mean_distilled_fidelity'], 0.8104 / 0.8528)
+
+    def test_mixed_ideal_state_stays_ideal(self):
+        r = self.result('07_entanglement_backend.py', '--shots', 10,
+                        '--mixed-weights', 1, 0, 0, 0,
+                        '--decoherence-rate', 0)['mixed']
+        self.assertEqual(r['stored_weights'], [1, 0, 0, 0])
+        self.assertEqual(r['swapped_weights'], [1, 0, 0, 0])
+        self.assertEqual(r['distillation_successes'], 10)
+        self.assertEqual(r['mean_distilled_fidelity'], 1)
+
     def test_conversion_preserves_werner_fidelity_and_gate_changes_correlation(self):
         r = self.result('08_entanglement_to_qubits.py', '--shots', 100, '--fidelities', 0.25, 1)
         mixed, bell = r['experiments']
@@ -121,6 +153,9 @@ class ModuleExamplesTests(unittest.TestCase):
         for name, args in [
             ('06_qubit_backend.py', ['--flip-probability', '1.1']),
             ('07_entanglement_backend.py', ['--shots', '0']),
+            ('07_entanglement_backend.py', ['--bell-swap-probability', '1.1']),
+            ('07_entanglement_backend.py', ['--mixed-weights', '0', '0', '0', '0']),
+            ('07_entanglement_backend.py', ['--mixed-weights', '0.9', '0.1', '0.1', '0.1']),
             ('08_entanglement_to_qubits.py', ['--fidelities', '-0.1']),
             ('09_topology_generators.py', ['--nodes', '8']),
             ('11_classical_apps.py', ['--count', '0']),

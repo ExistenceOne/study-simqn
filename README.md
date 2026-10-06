@@ -51,7 +51,7 @@ NumPy와 Pandas도 `requirements.txt`에 버전 고정했음.
 | 04 | [라우팅](examples/04_routing.py) | 최소 홉과 최소 지연 경로 | `python examples/04_routing.py` |
 | 05 | [얽힘 분배](examples/05_entanglement_distribution.py) | 토폴로지, 메모리, 내장 프로토콜 | `python examples/05_entanglement_distribution.py` |
 | 06 | [Qubit backend](examples/06_qubit_backend.py) | 밀도행렬, QubitFactory, 측정 잡음 | `python examples/06_qubit_backend.py` |
-| 07 | [Entanglement backend](examples/07_entanglement_backend.py) | Werner 저장·교환·정제 | `python examples/07_entanglement_backend.py` |
+| 07 | [Entanglement backend](examples/07_entanglement_backend.py) | Bell·Werner·Mixed 저장·교환·정제 | `python examples/07_entanglement_backend.py` |
 | 08 | [Entanglement → qubit](examples/08_entanglement_to_qubits.py) | to_qubits, 공동 상태, 변환 후 게이트 | `python examples/08_entanglement_to_qubits.py` |
 | 09 | [토폴로지 생성](examples/09_topology_generators.py) | linear·grid·Waxman | `python examples/09_topology_generators.py` |
 | 10 | [노드 entity](examples/10_node_entities.py) | memory·operator·양자/고전 채널 설치 | `python examples/10_node_entities.py` |
