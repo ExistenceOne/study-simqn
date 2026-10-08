@@ -110,3 +110,13 @@ class Fig6ProtocolTests(unittest.TestCase):
             result = run(name, 2, settings, 42)
             self.assertEqual(result["completed_pairs"], 1, name)
             self.assertEqual(result["completion_times"], [1005e-9])
+
+    def test_long_seed_chain_does_not_accumulate_trace_error(self):
+        run = self.runner()
+        settings = {**SETTINGS, "duration": 0.26}
+        result = run("qubit", 45, settings, 452028)
+        self.assertEqual(result["completed_pairs"], 258)
+        expected = (1 + 3 * math.exp(-0.02 * 87)) / 4
+        self.assertTrue(
+            all(abs(f - expected) < 1e-9 for f in result["completion_fidelities"])
+        )

@@ -88,7 +88,13 @@ class Backend:
                     self.max_state_qubits, middle_left.state.num
                 )
                 H(middle_left)
-                z, x = middle_left.measure(), middle_right.measure()
+                z = middle_left.measure()
+                # qns uses 1-p0 for outcome 1, assuming trace(rho)=1 exactly.
+                # Repeated outcome-1 branches otherwise amplify roundoff until
+                # the next joint() rejects the state's trace (tolerance 1e-10).
+                middle_right.state.rho /= np.trace(middle_right.state.rho)
+                x = middle_right.measure()
+                a.state.rho /= np.trace(a.state.rho)
             else:
                 from netsquid.qubits.operators import CNOT as NCNOT
                 from netsquid.qubits.operators import H as NH

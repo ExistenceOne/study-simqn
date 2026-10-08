@@ -275,3 +275,9 @@ metadata의 `qns_core`에 실제 컴파일 모듈 여부를 기록함. 원문 Fi
 실행 중인 process를 종료하고 failed metadata를 기록함.
 모든 backend의 초기 import 비용은 startup에 포함함. warmup 실행 시간만 제외함.
 별도 NetSquid 환경 경로는 `/tmp`의 임시 위치이며 지워지면 같은 명령으로 재생성함.
+
+SimQN 큐비트 adapter는 각 Bell 측정 뒤 남은 밀도행렬을 trace로 정규화함.
+qns의 outcome-1 확률 분모는 `1-p0`라 긴 측정 연쇄에서 작은 trace 반올림 오차가
+증폭될 수 있기 때문임. 45노드의 실제 실패 seed 회귀 테스트로 검증했음.
+설치된 qns 소스를 수정하거나 Werner/NetSquid의 잡음 함수를 바꾸지 않음.
+이 수치 안정화 연산 비용은 큐비트 job 실행시간에 포함됨.
