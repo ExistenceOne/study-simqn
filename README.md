@@ -11,6 +11,9 @@
 Physical backend와 `to_qubits()` 변환부터 노드 entity·앱 설치, 토폴로지,
 요청 관리, 데이터 수집, Cython 빌드와 병렬 실험까지 직접 실행할 수 있음.
 
+**17–20번 분산 양자 연산·센서 예제**는 [docs/distributed-computing-and-sensing.md](docs/distributed-computing-and-sensing.md)에 정리했음.
+네트워크 텔레포테이션·원격 CNOT과 독립/GHZ 센서의 위상 추정을 비교할 수 있음.
+
 ## 빠르게 실행하기
 
 Python **3.11 또는 3.12** 권장함. 아래 명령은 저장소 루트에서 실행함.
@@ -61,12 +64,16 @@ NumPy와 Pandas도 `requirements.txt`에 버전 고정했음.
 | 14 | [데이터 수집](examples/14_data_collector.py) | Monitor 주기 관측·CSV | `python examples/14_data_collector.py` |
 | 15 | [Cython](examples/15_cython_acceleration.py) | 컴파일 확인·이벤트 벤치마크 | `python examples/15_cython_acceleration.py` |
 | 16 | [병렬 실험](examples/16_parallel_simulations.py) | MPSimulations·반복 집계 | `python examples/16_parallel_simulations.py` |
+| 17 | [네트워크 텔레포테이션](examples/17_network_teleportation.py) | Bell 측정·고전 통신·수신 후 보정 | `python examples/17_network_teleportation.py` |
+| 18 | [원격 CNOT](examples/18_remote_cnot.py) | 노드별 로컬 연산·양방향 메시지 | `python examples/18_remote_cnot.py` |
+| 19 | [독립 센서](examples/19_independent_sensor_network.py) | Ramsey 위상 추정·고전 결과 수집 | `python examples/19_independent_sensor_network.py` |
+| 20 | [GHZ 센서](examples/20_entangled_sensor_network.py) | 분산 parity·독립 센서 비교·잡음 | `python examples/20_entangled_sensor_network.py` |
 
 결과는 JSON으로 출력됨. 기본 설정의 실제 실행 결과는
 [docs/sample-results.json](docs/sample-results.json)에 저장했음.
 시간 단위는 초, `seed` 기본값은 42임.
 CLI 옵션이 있는 02·03·05는 `--help`로 옵션 확인 가능함.
-06–16의 옵션도 각각 `--help`로 확인 가능함. 기본 의존성은 동일하며
+06–20의 옵션도 각각 `--help`로 확인 가능함. 기본 의존성은 동일하며
 15번을 실제 Cython 코어로 실행할 때만 [추가 빌드 환경](docs/cython-build.md)이 필요함.
 
 ## 01. 이벤트 예약과 취소

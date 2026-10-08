@@ -1,0 +1,569 @@
+{
+  "17_network_teleportation.py": {
+    "seed": 42,
+    "settings": {
+      "quantum_delay": 0.01,
+      "classical_delay": 0.01,
+      "drop_rate": 0,
+      "fidelity": 1,
+      "t2": 0
+    },
+    "attempted": 120,
+    "completed": 120,
+    "failed": 0,
+    "success_rate": 1.0,
+    "bell_pairs_created": 120,
+    "quantum_transmissions": 120,
+    "classical_packets_sent": 360,
+    "classical_payload_bits": 240,
+    "mean_fidelity": 0.9999999999999993,
+    "minimum_fidelity": 0.9999999999999971,
+    "mean_completion_seconds": 0.030000000000000013,
+    "mean_ack_seconds": 0.04,
+    "measurement_branches": {
+      "11": 34,
+      "00": 28,
+      "10": 28,
+      "01": 30
+    },
+    "by_input": {
+      "0": {
+        "attempted": 20,
+        "completed": 20,
+        "mean_fidelity": 0.9999999999999993
+      },
+      "1": {
+        "attempted": 20,
+        "completed": 20,
+        "mean_fidelity": 0.9999999999999997
+      },
+      "+": {
+        "attempted": 20,
+        "completed": 20,
+        "mean_fidelity": 0.9999999999999989
+      },
+      "-": {
+        "attempted": 20,
+        "completed": 20,
+        "mean_fidelity": 0.9999999999999993
+      },
+      "+i": {
+        "attempted": 20,
+        "completed": 20,
+        "mean_fidelity": 0.9999999999999991
+      },
+      "-i": {
+        "attempted": 20,
+        "completed": 20,
+        "mean_fidelity": 0.9999999999999991
+      }
+    },
+    "first_trial_trace": [
+      {
+        "node": "Bob",
+        "event": "bob_bell_arrival",
+        "time_seconds": 0.01
+      },
+      {
+        "node": "Alice",
+        "event": "bell_measurement",
+        "time_seconds": 0.02
+      },
+      {
+        "node": "Bob",
+        "event": "bob_correction",
+        "time_seconds": 0.03
+      },
+      {
+        "node": "Alice",
+        "event": "alice_ack",
+        "time_seconds": 0.04
+      }
+    ],
+    "timeout_seconds": 0.040010000000000004,
+    "gate_model": "instantaneous ideal local gates"
+  },
+  "18_remote_cnot.py": {
+    "seed": 42,
+    "settings": {
+      "quantum_delay": 0.01,
+      "classical_delay": 0.01,
+      "drop_rate": 0,
+      "fidelity": 1,
+      "t2": 0
+    },
+    "attempted": 120,
+    "completed": 120,
+    "failed": 0,
+    "success_rate": 1.0,
+    "bell_pairs_created": 120,
+    "quantum_transmissions": 120,
+    "classical_packets_sent": 360,
+    "classical_payload_bits": 240,
+    "mean_fidelity": 0.9999999999999993,
+    "minimum_fidelity": 0.999999999999997,
+    "mean_completion_seconds": 0.04,
+    "mean_ack_seconds": null,
+    "measurement_branches": {
+      "10": 40,
+      "00": 30,
+      "01": 28,
+      "11": 22
+    },
+    "by_input": {
+      "0,0": {
+        "attempted": 8,
+        "completed": 8,
+        "mean_fidelity": 0.9999999999999998
+      },
+      "0,1": {
+        "attempted": 8,
+        "completed": 8,
+        "mean_fidelity": 0.9999999999999998
+      },
+      "0,+": {
+        "attempted": 8,
+        "completed": 8,
+        "mean_fidelity": 0.9999999999999991
+      },
+      "0,+i": {
+        "attempted": 8,
+        "completed": 8,
+        "mean_fidelity": 0.9999999999999993
+      },
+      "1,0": {
+        "attempted": 8,
+        "completed": 8,
+        "mean_fidelity": 0.9999999999999996
+      },
+      "1,1": {
+        "attempted": 8,
+        "completed": 8,
+        "mean_fidelity": 0.9999999999999997
+      },
+      "1,+": {
+        "attempted": 8,
+        "completed": 8,
+        "mean_fidelity": 0.9999999999999991
+      },
+      "1,+i": {
+        "attempted": 8,
+        "completed": 8,
+        "mean_fidelity": 0.9999999999999997
+      },
+      "+,0": {
+        "attempted": 7,
+        "completed": 7,
+        "mean_fidelity": 0.9999999999999992
+      },
+      "+,1": {
+        "attempted": 7,
+        "completed": 7,
+        "mean_fidelity": 0.9999999999999998
+      },
+      "+,+": {
+        "attempted": 7,
+        "completed": 7,
+        "mean_fidelity": 0.999999999999999
+      },
+      "+,+i": {
+        "attempted": 7,
+        "completed": 7,
+        "mean_fidelity": 0.999999999999999
+      },
+      "+i,0": {
+        "attempted": 7,
+        "completed": 7,
+        "mean_fidelity": 0.9999999999999991
+      },
+      "+i,1": {
+        "attempted": 7,
+        "completed": 7,
+        "mean_fidelity": 0.9999999999999991
+      },
+      "+i,+": {
+        "attempted": 7,
+        "completed": 7,
+        "mean_fidelity": 0.9999999999999984
+      },
+      "+i,+i": {
+        "attempted": 7,
+        "completed": 7,
+        "mean_fidelity": 0.999999999999999
+      }
+    },
+    "first_trial_trace": [
+      {
+        "node": "Bob",
+        "event": "bob_bell_arrival",
+        "time_seconds": 0.01
+      },
+      {
+        "node": "Alice",
+        "event": "alice_control_measurement",
+        "time_seconds": 0.02
+      },
+      {
+        "node": "Bob",
+        "event": "bob_local_cnot",
+        "time_seconds": 0.03
+      },
+      {
+        "node": "Alice",
+        "event": "alice_phase_correction",
+        "time_seconds": 0.04
+      },
+      {
+        "node": "Bob",
+        "event": "bob_target_released",
+        "time_seconds": 0.04
+      }
+    ],
+    "timeout_seconds": 0.040010000000000004,
+    "gate_model": "instantaneous ideal local gates"
+  },
+  "19_independent_sensor_network.py": {
+    "mode": "independent",
+    "seed": 42,
+    "nodes": 3,
+    "phase_radians": 0.1,
+    "shots_per_repeat": 200,
+    "repeats": 8,
+    "attempted_rounds": 1600,
+    "completed_rounds": 1600,
+    "complete_round_rate": 1.0,
+    "sensor_uses": 4800,
+    "quantum_transmissions": 3200,
+    "received_measurements": 4800,
+    "classical_packets_sent": 3200,
+    "estimates": [
+      0.08677552885091006,
+      0.12028988239478806,
+      0.050020856805770016,
+      -0.006666716050370397,
+      0.09012194501459525,
+      0.14382871085515206,
+      0.14046141470985582,
+      0.11022304998774664
+    ],
+    "observed_signals": [
+      -0.08666666666666667,
+      -0.12,
+      -0.05,
+      0.006666666666666667,
+      -0.09,
+      -0.14333333333333334,
+      -0.14,
+      -0.11
+    ],
+    "valid_estimate_repeats": 8,
+    "estimate_std": 0.05027808495140132,
+    "estimate_mean_standard_error": 0.01777598740710459,
+    "rmse": 0.04772635242853423,
+    "bias": -0.00811816592894407,
+    "visibility": 1.0,
+    "per_sensor_visibility": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "expected_signal": -0.09983341664682815,
+    "expected_fisher_information_per_attempt": 3.0,
+    "first_complete_round_seconds_if_successful": 0.025,
+    "total_simulated_seconds": 40.016,
+    "slot_seconds": 0.02501,
+    "first_trial_trace": [
+      {
+        "node": "Sensor0",
+        "event": "probe_arrival",
+        "time_seconds": 0.0
+      },
+      {
+        "node": "Sensor1",
+        "event": "probe_arrival",
+        "time_seconds": 0.01
+      },
+      {
+        "node": "Sensor2",
+        "event": "probe_arrival",
+        "time_seconds": 0.01
+      },
+      {
+        "node": "Sensor0",
+        "event": "sensor_measurement",
+        "time_seconds": 0.015
+      },
+      {
+        "node": "Sensor1",
+        "event": "sensor_measurement",
+        "time_seconds": 0.015
+      },
+      {
+        "node": "Sensor2",
+        "event": "sensor_measurement",
+        "time_seconds": 0.015
+      },
+      {
+        "node": "Sensor0",
+        "event": "result_arrival",
+        "time_seconds": 0.025
+      },
+      {
+        "node": "Sensor0",
+        "event": "result_arrival",
+        "time_seconds": 0.025
+      }
+    ],
+    "time_resolution_seconds": 1e-06,
+    "effective_delays_seconds": {
+      "quantum": 0.01,
+      "classical": 0.01,
+      "interrogation": 0.005
+    },
+    "storage_times_seconds": [
+      0.015,
+      0.005,
+      0.005
+    ],
+    "settings": {
+      "quantum_delay": 0.01,
+      "classical_delay": 0.01,
+      "interrogation": 0.005,
+      "drop_rate": 0,
+      "t2": 0
+    },
+    "calibration": "known T2 and delays; quadrature bias; local arcsin branch",
+    "resource_accounting": "attempted probes include losses; no retries; preparation gates ideal and instantaneous"
+  },
+  "20_entangled_sensor_network.py": {
+    "independent": {
+      "mode": "independent",
+      "seed": 42,
+      "nodes": 3,
+      "phase_radians": 0.1,
+      "shots_per_repeat": 200,
+      "repeats": 8,
+      "attempted_rounds": 1600,
+      "completed_rounds": 1600,
+      "complete_round_rate": 1.0,
+      "sensor_uses": 4800,
+      "quantum_transmissions": 3200,
+      "received_measurements": 4800,
+      "classical_packets_sent": 3200,
+      "estimates": [
+        0.08677552885091006,
+        0.12028988239478806,
+        0.050020856805770016,
+        -0.006666716050370397,
+        0.09012194501459525,
+        0.14382871085515206,
+        0.14046141470985582,
+        0.11022304998774664
+      ],
+      "observed_signals": [
+        -0.08666666666666667,
+        -0.12,
+        -0.05,
+        0.006666666666666667,
+        -0.09,
+        -0.14333333333333334,
+        -0.14,
+        -0.11
+      ],
+      "valid_estimate_repeats": 8,
+      "estimate_std": 0.05027808495140132,
+      "estimate_mean_standard_error": 0.01777598740710459,
+      "rmse": 0.04772635242853423,
+      "bias": -0.00811816592894407,
+      "visibility": 1.0,
+      "per_sensor_visibility": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expected_signal": -0.09983341664682815,
+      "expected_fisher_information_per_attempt": 3.0,
+      "first_complete_round_seconds_if_successful": 0.025,
+      "total_simulated_seconds": 40.016,
+      "slot_seconds": 0.02501,
+      "first_trial_trace": [
+        {
+          "node": "Sensor0",
+          "event": "probe_arrival",
+          "time_seconds": 0.0
+        },
+        {
+          "node": "Sensor1",
+          "event": "probe_arrival",
+          "time_seconds": 0.01
+        },
+        {
+          "node": "Sensor2",
+          "event": "probe_arrival",
+          "time_seconds": 0.01
+        },
+        {
+          "node": "Sensor0",
+          "event": "sensor_measurement",
+          "time_seconds": 0.015
+        },
+        {
+          "node": "Sensor1",
+          "event": "sensor_measurement",
+          "time_seconds": 0.015
+        },
+        {
+          "node": "Sensor2",
+          "event": "sensor_measurement",
+          "time_seconds": 0.015
+        },
+        {
+          "node": "Sensor0",
+          "event": "result_arrival",
+          "time_seconds": 0.025
+        },
+        {
+          "node": "Sensor0",
+          "event": "result_arrival",
+          "time_seconds": 0.025
+        }
+      ],
+      "time_resolution_seconds": 1e-06,
+      "effective_delays_seconds": {
+        "quantum": 0.01,
+        "classical": 0.01,
+        "interrogation": 0.005
+      },
+      "storage_times_seconds": [
+        0.015,
+        0.005,
+        0.005
+      ],
+      "settings": {
+        "quantum_delay": 0.01,
+        "classical_delay": 0.01,
+        "interrogation": 0.005,
+        "drop_rate": 0,
+        "t2": 0
+      },
+      "calibration": "known T2 and delays; quadrature bias; local arcsin branch",
+      "resource_accounting": "attempted probes include losses; no retries; preparation gates ideal and instantaneous"
+    },
+    "ghz": {
+      "mode": "ghz",
+      "seed": 42,
+      "nodes": 3,
+      "phase_radians": 0.1,
+      "shots_per_repeat": 200,
+      "repeats": 8,
+      "attempted_rounds": 1600,
+      "completed_rounds": 1600,
+      "complete_round_rate": 1.0,
+      "sensor_uses": 4800,
+      "quantum_transmissions": 3200,
+      "received_measurements": 4800,
+      "classical_packets_sent": 3200,
+      "estimates": [
+        0.07052498658603186,
+        0.10506434414690814,
+        0.09459803640277596,
+        0.09113101048915774,
+        0.09459803640277596,
+        0.09113101048915774,
+        0.09807561258299415,
+        0.06711930693011027
+      ],
+      "observed_signals": [
+        -0.21,
+        -0.31,
+        -0.28,
+        -0.27,
+        -0.28,
+        -0.27,
+        -0.29,
+        -0.2
+      ],
+      "valid_estimate_repeats": 8,
+      "estimate_std": 0.013267962701327546,
+      "estimate_mean_standard_error": 0.004690933199319445,
+      "rmse": 0.01656407110426539,
+      "bias": -0.010969706996261028,
+      "visibility": 1.0,
+      "per_sensor_visibility": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expected_signal": -0.2955202066613396,
+      "expected_fisher_information_per_attempt": 9.0,
+      "first_complete_round_seconds_if_successful": 0.025,
+      "total_simulated_seconds": 40.016,
+      "slot_seconds": 0.02501,
+      "first_trial_trace": [
+        {
+          "node": "Sensor0",
+          "event": "probe_arrival",
+          "time_seconds": 0.0
+        },
+        {
+          "node": "Sensor1",
+          "event": "probe_arrival",
+          "time_seconds": 0.01
+        },
+        {
+          "node": "Sensor2",
+          "event": "probe_arrival",
+          "time_seconds": 0.01
+        },
+        {
+          "node": "Sensor0",
+          "event": "sensor_measurement",
+          "time_seconds": 0.015
+        },
+        {
+          "node": "Sensor1",
+          "event": "sensor_measurement",
+          "time_seconds": 0.015
+        },
+        {
+          "node": "Sensor2",
+          "event": "sensor_measurement",
+          "time_seconds": 0.015
+        },
+        {
+          "node": "Sensor0",
+          "event": "result_arrival",
+          "time_seconds": 0.025
+        },
+        {
+          "node": "Sensor0",
+          "event": "result_arrival",
+          "time_seconds": 0.025
+        }
+      ],
+      "time_resolution_seconds": 1e-06,
+      "effective_delays_seconds": {
+        "quantum": 0.01,
+        "classical": 0.01,
+        "interrogation": 0.005
+      },
+      "storage_times_seconds": [
+        0.015,
+        0.005,
+        0.005
+      ],
+      "settings": {
+        "quantum_delay": 0.01,
+        "classical_delay": 0.01,
+        "interrogation": 0.005,
+        "drop_rate": 0,
+        "t2": 0
+      },
+      "calibration": "known T2 and delays; quadrature bias; local arcsin branch",
+      "resource_accounting": "attempted probes include losses; no retries; preparation gates ideal and instantaneous"
+    },
+    "ideal_local_information_gain": 3,
+    "expected_information_gain": 3.0,
+    "observed_rmse_ratio_independent_over_ghz": 2.8813177707408104
+  }
+}
