@@ -4,7 +4,7 @@
 **이벤트 → 큐비트 → 채널 → 라우팅 → 얽힘 분배** 순서로 진행하면 됨.
 양자 하드웨어나 외부 서비스 없이 로컬에서 실행 가능함.
 
-논문 **Fig. 3·5를 재실행하는 코드**도 [evaluations/README.md](evaluations/README.md)에 추가했음.
+논문 **Fig. 3·5·6을 재실행하는 코드**도 [evaluations/README.md](evaluations/README.md)에 추가했음.
 전체·작은 실험 config, 반복별 CSV, 평균·SEM 그래프와 누락 설정 설명을 제공함.
 
 **06–16번 모듈 예제**는 [docs/module-examples.md](docs/module-examples.md)에 정리했음.

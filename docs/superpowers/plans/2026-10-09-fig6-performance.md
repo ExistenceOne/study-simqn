@@ -1,6 +1,6 @@
 # Fig. 6 Performance Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 같은 선형 얽힘 분배 workload에서 SimQN 큐비트/Werner 백엔드와 1/4-worker 실행 비용을 측정하고 Fig. 6 형태의 그래프·원시 결과를 생성함.
 
@@ -12,8 +12,9 @@
 
 ## 실험 명세와 범위
 
-사용자는 Fig. 6 **구현 계획**을 요청했음. 이번 작업은 계획 문서 작성까지임.
-아래 추가 가정은 구현 시 config와 metadata에 그대로 기록할 제안값임.
+최초 요청은 Fig. 6 구현 계획 작성이었음. 이후 NetSquid 사용 가능 여부를 확인하고
+사용자의 구현 지시에 따라 아래 명세를 구현·검증했음. 원래 계획의 2차 NetSquid 범위는
+아래 구현 결정에 따라 1차에 포함했음.
 
 | 항목 | 원문 근거 / 계획값 |
 | --- | --- |
@@ -85,7 +86,7 @@ Werner는 쌍의 두 절반에 실제 누적된 저장 시간 `t_left+t_right`�
 
 ## Global Constraints
 
-- 기존 Fig. 3·5 CLI/config 및 사용자 수정 파일 유지. 이번 단계에서 코드 구현·실행·publish 하지 않음.
+- 기존 Fig. 3·5 CLI/config 및 사용자 수정 파일 유지. 사용자의 후속 구현·publish 지시에 따라 공개함.
 - 필수 패키지 버전은 기존 requirements를 그대로 사용함.
 - figure의 0노드 조건을 만들지 않으며 최소 노드는 2임.
 - RNG seed는 backend/node/batch/job 식별자로 결정하고 PID·실행 순서에 의존하지 않음.
@@ -124,12 +125,12 @@ Werner는 쌍의 두 절반에 실제 누적된 저장 시간 `t_left+t_right`�
 - Adapter: create_link(round_id, link_id), apply_noise(handle, now), swap(left, right, now), correct(pair, x_bit, z_bit), fidelity(pair).
 - 공통 handle은 link/round id, 양끝 노드, 각 절반 last-noise time을 포함함.
 
-- [ ] 먼저 실패 테스트 작성: noise=0의 2/3/4노드에서 보정 후 fidelity=1, 모든 Bell branch에서 parity 보정 확인, 중복 completion 없음.
-- [ ] 잡음 테스트 작성: 단일 쌍 양쪽에 시간 t를 적용하면 `F=(1+3*exp(-400*t))/4`; 분할 적용과 일괄 적용 일치. 3/4노드의 backend fidelity 차이 <1e-10.
-- [ ] `python -m unittest discover -s tests -p test_fig6_protocol.py -v` 실행해 미구현 실패 확인.
-- [ ] adapter와 공통 protocol 구현. 2노드는 중계 측정 없이 전달 완료, node50도 로컬 측정 즉시 상태 축소.
-- [ ] 경계 테스트: duration 전에 생성했지만 ACK가 늦은 round는 미완료; 완료 후 상태 변화가 기록 fidelity를 바꾸지 않음. 50노드·2라운드에서 max_state_qubits <=4.
-- [ ] 테스트 통과 확인 후 해당 파일만 commit.
+- [x] 먼저 실패 테스트 작성: noise=0의 2/3/4노드에서 보정 후 fidelity=1, 모든 Bell branch에서 parity 보정 확인, 중복 completion 없음.
+- [x] 잡음 테스트 작성: 단일 쌍 양쪽에 시간 t를 적용하면 `F=(1+3*exp(-400*t))/4`; 분할 적용과 일괄 적용 일치. 3/4노드의 backend fidelity 차이 <1e-10.
+- [x] `python -m unittest discover -s tests -p test_fig6_protocol.py -v` 실행해 미구현 실패 확인.
+- [x] adapter와 공통 protocol 구현. 2노드는 중계 측정 없이 전달 완료, node50도 로컬 측정 즉시 상태 축소.
+- [x] 경계 테스트: duration 전에 생성했지만 ACK가 늦은 round는 미완료; 완료 후 상태 변화가 기록 fidelity를 바꾸지 않음. 50노드·2라운드에서 max_state_qubits <=4.
+- [x] 테스트 통과 확인 후 해당 파일만 commit.
 
 ## Task 2: 독립 실험 병렬 실행과 정직한 시간 측정
 
@@ -140,11 +141,11 @@ Werner는 쌍의 두 절반에 실제 누적된 저장 시간 `t_left+t_right`�
 - worker는 picklable top-level 함수; timing을 붙인 Task 1 결과 반환.
 - batch 결과는 workers/jobs/batch_seconds/amortized_seconds; job은 seed와 세 시간 지표 포함.
 
-- [ ] 실패 테스트 작성: synthetic clock 결과로 batch 8초/4 jobs=2초 계산; 결과 순서를 job index로 복원; 중복/누락 job 거부.
-- [ ] 작은 실제 프로토콜의 1/4-worker 완료 수·충실도 일치 테스트 작성; spawn subprocess에서 import만 해도 pool이 실행되지 않음 확인.
-- [ ] narrow tests 실행해 실패 확인 후 process pool, wall timing, warmup, thread env 제한 구현.
-- [ ] worker 예외는 원인과 job id를 호출자에 전달하고 batch 실패 처리하는 테스트 추가.
-- [ ] narrow tests 통과 후 commit. CI에서 speedup >1 같은 성능 threshold는 검사하지 않음.
+- [x] 실패 테스트 작성: synthetic clock 결과로 batch 8초/4 jobs=2초 계산; 결과 순서를 job index로 복원; 중복/누락 job 거부.
+- [x] 작은 실제 프로토콜의 1/4-worker 완료 수·충실도 일치 테스트 작성; spawn subprocess에서 import만 해도 pool이 실행되지 않음 확인.
+- [x] narrow tests 실행해 실패 확인 후 process pool, wall timing, warmup, thread env 제한 구현.
+- [x] worker 예외는 원인과 job id를 호출자에 전달하고 batch 실패 처리하는 테스트 추가.
+- [x] narrow tests 통과 후 commit. CI에서 speedup >1 같은 성능 threshold는 검사하지 않음.
 
 ## Task 3: CLI·결과·그래프 통합
 
@@ -158,22 +159,22 @@ Werner는 쌍의 두 절반에 실제 누적된 저장 시간 `t_left+t_right`�
 - full: nodes=[5,10,15,20,25,30,35,40,45,50], duration=1, jobs_per_batch=8, batch_repeats=3, warmup_jobs=1.
 - 공통: backends=[qubit,werner], workers=[1,4]; 나머지는 실험 명세 표의 값.
 
-- [ ] config 테스트: nodes integer>=2, duration/rate 유한 양수, workers/jobs/batch_repeats 양의 정수, batch_repeats=1이면 SEM null. NaN/bool/float 노드 수와 비어 있지 않은 output 거부.
-- [ ] smoke CLI 통합 테스트에서 `fig6_jobs.csv`, `fig6_batches.csv`, `fig6_summary.csv`, `fig6.png`, `fig6_job_latency.png`, `metadata.json` 검증.
-- [ ] narrow tests로 미구현 실패 확인 후 CLI 구현: 조건별 checkpoint, 실패 metadata, 전체 config·seed·버전·OS/CPU·start_method·BLAS 환경·qns 모듈 실제 경로와 compiled flag 기록.
-- [ ] amortized와 job latency를 별도 그림으로 표시. 원문 초 단위 값·배율을 실측과 섞지 않고 legend에는 worker/process로 명시.
-- [ ] README에 실행법, 잡음·duration 추가 가정, 4-worker 의미, NetSquid/Cython 범위 기록.
-- [ ] narrow tests와 기존 전체 tests 통과 확인 후 commit.
+- [x] config 테스트: nodes integer>=2, duration/rate 유한 양수, workers/jobs/batch_repeats 양의 정수, batch_repeats=1이면 SEM null. NaN/bool/float 노드 수와 비어 있지 않은 output 거부.
+- [x] smoke CLI 통합 테스트에서 `fig6_jobs.csv`, `fig6_batches.csv`, `fig6_summary.csv`, `fig6.png`, `fig6_job_latency.png`, `metadata.json` 검증.
+- [x] narrow tests로 미구현 실패 확인 후 CLI 구현: 조건별 checkpoint, 실패 metadata, 전체 config·seed·버전·OS/CPU·start_method·BLAS 환경·qns 모듈 실제 경로와 compiled flag 기록.
+- [x] amortized와 job latency를 별도 그림으로 표시. 원문 초 단위 값·배율을 실측과 섞지 않고 legend에는 worker/process로 명시.
+- [x] README에 실행법, 잡음·duration 추가 가정, 4-worker 의미, NetSquid/Cython 범위 기록.
+- [x] narrow tests와 기존 전체 tests 통과 확인 후 commit.
 
 ## Task 4: 실기 검증과 결과 공개
 
-- [ ] smoke 실행 후 전 조건 complete와 PNG label 확인.
-- [ ] full 실행 전에 10/50노드 각 1 job의 메모리·시간 확인. 50노드에서 상태의 4qubit 상한을 넘으면 full 실행을 중단하고 Task 1 수정.
-- [ ] full: 노드 조건 10개 × 2 backend × 2 worker × 3 batch × 8 jobs = 960 measured jobs. 각 process에 warmup 1회를 수행하므로 worker 수까지 반영하면 총 300 warmup jobs이며 별도 기록. NetSquid 1-worker 곡선을 추가하면 measured jobs 240개와 warmup jobs 30개가 더해져 각각 총 1200·330개임.
-- [ ] 동일 job 종류에서 완료 수·fidelity 일치 확인. worker 수에 따라 simulation output이 변하면 성능 평가 보류.
-- [ ] Python 3.11/3.12 전체 tests, ruff, diff check. 빨라지는 것 자체는 합격 기준이 아님.
-- [ ] CSV/PNG/metadata를 sample-results에 저장하고 결과 guide 갱신. 사용자 미commit 변경은 포함하지 않음.
-- [ ] 구현 공개가 지시된 단계에서 commit/push하고 GitHub CI 확인.
+- [x] smoke 실행 후 전 조건 complete와 PNG label 확인.
+- [x] full 실행 전에 10/50노드 각 1 job의 메모리·시간 확인. 50노드에서 상태의 4qubit 상한을 넘으면 full 실행을 중단하고 Task 1 수정.
+- [x] full: 노드 조건 10개 × 2 backend × 2 worker × 3 batch × 8 jobs = 960 measured jobs. 각 process에 warmup 1회를 수행하므로 worker 수까지 반영하면 총 300 warmup jobs이며 별도 기록. NetSquid 1-worker 곡선을 추가하면 measured jobs 240개와 warmup jobs 30개가 더해져 각각 총 1200·330개임.
+- [x] 동일 job 종류에서 완료 수·fidelity 일치 확인. worker 수에 따라 simulation output이 변하면 성능 평가 보류.
+- [x] Python 3.11/3.12 전체 tests, ruff, diff check. 빨라지는 것 자체는 합격 기준이 아님.
+- [x] CSV/PNG/metadata를 sample-results에 저장하고 결과 guide 갱신. 사용자 미commit 변경은 포함하지 않음.
+- [x] 구현 공개가 지시된 단계에서 commit/push하고 GitHub CI 확인.
 
 ## 2차: NetSquid·Cython 비교
 
@@ -208,3 +209,16 @@ backend 품질·완료 수가 같은 조건에서 일치하고 기존 Fig. 3·5 
 - 1-worker와 4-worker 모두 spawn pool을 사용. 프로세스 import/startup 비용 포함, 모든 process의 warmup barrier 구간만 제외.
 - `run_fig6`의 full preset은 NetSquid 포함 150 batches/1200 measured jobs; SimQN만 실행하면 120 batches/960 jobs.
 - 기존 Fig. 3·5 config를 변경하지 않고 별도 CLI로 제공.
+
+## 실행 검증 기록 (2026-10-09)
+
+- 최종 측정 코드: `17a9fdc` (QState 측정 후 밀도행렬 trace 안정화 포함).
+- full: 150 batches / 1200 measured jobs / 330 unmeasured warmups 완료; NetSquid 포함 다섯 곡선 모두 실측.
+- smoke: 20 batches / 80 measured jobs 완료. 실패·중단한 사전 측정 결과는 공개 결과에서 제외.
+- 240개의 node/batch/job/seed 그룹에서 다섯 조건의 완료 수·round checksum·이벤트 수 일치; 평균 충실도 차이 <1e-10. 각 job은 별도 해석식 검증도 통과.
+- batch/jobs 및 1-worker/4-worker speedup CSV를 독립 재계산해 확인. 두 full PNG의 축·범례·오류 막대 시각 검증 완료.
+- Apple M4 / macOS ARM64 / Python 3.11.16 / NumPy 1.26.4 / NetSquid 1.1.8에서 동일 환경 비교.
+- 평균 batch speedup 범위: qubit 3.03–3.16배, Werner 1.40–2.55배. 개별 job latency와 구별하며 논문 배율 재현으로 주장하지 않음.
+- 67 tests: Python3.11 NumPy2, Python3.12 NumPy2, Cython3.12 compiled core, NetSquid3.11 NumPy1.26.4 모두 통과. NetSquid 없는 세 환경은 optional test 두 개 skip.
+- 독립 리뷰의 import/startup 공정성, ns 경계, worker timeout 종료, 밀도행렬 trace 오류 지적 수정 및 재검증 완료. Ruff·diff check 통과.
+- Cython 전체 성능 sweep은 이번 결과에 포함하지 않음; compiled core 호환성만 검증. 논문 미공개 duration·반복·잡음식·시간 집계 범위·하드웨어로 인해 정확한 원문 수치 재현은 여전히 추가 자료가 필요함.

@@ -1,0 +1,274 @@
+{
+  "status": "complete",
+  "config": {
+    "worker_timeout_seconds": 600,
+    "name": "fig6-smoke",
+    "seed": 2026,
+    "nodes": [
+      2,
+      5
+    ],
+    "backends": [
+      "qubit",
+      "werner",
+      "netsquid"
+    ],
+    "workers": [
+      1,
+      4
+    ],
+    "duration": 0.01,
+    "send_rate": 1000,
+    "link_length_km": 10,
+    "speed_km_s": 200000,
+    "depolar_rate": 200,
+    "noise_during_transit": true,
+    "initial_fidelity": 1,
+    "jobs_per_batch": 4,
+    "batch_repeats": 2,
+    "warmup_jobs": 1
+  },
+  "assumptions": {
+    "reproduction": "Source-informed workload, not exact paper timing reproduction.",
+    "nodes": "Figure sweep 5..50. Paper text separately says 10-node chain.",
+    "generation": "Left endpoint generates a Bell pair; right half arrives after distance/speed.",
+    "swapping": "All repeaters BSM at link-ready time; deterministic node-order callbacks, no processing delay.",
+    "classical": "One logical routed BSM message per repeater, delay=remaining hops*link delay; no per-hop forwarding events.",
+    "noise": "Assumed local Bloch contraction exp(-200*t). Both halves accumulate actual transit/storage time. Same DM channel in both simulators.",
+    "werner": "Scalar Werner states in corrected Pauli frame; BSM bits sampled uniformly. No gates simulated on the scalar state.",
+    "resources": "Unlimited round memory, lossless/unlimited channels, no distillation, capacity congestion or retries.",
+    "time": "Main y=batch wall time/job count, subtract warmup barrier span only; startup/IPC/teardown included. Job latency separately reported.",
+    "parallel": "Spawn processes run independent trials; one trial is never partitioned among cores. Native math thread count=1.",
+    "netsquid": "One-worker DM benchmark; optional proprietary dependency. Absent package is skipped, installed import/runtime failure is an error.",
+    "duration": "1s full simulated duration, 8 jobs/batch and 3 batches are assumptions, not paper values.",
+    "uncertainty": "Batch sample SEM for amortized time; per-job latency uses separately labeled job samples."
+  },
+  "environment": {
+    "python": "3.11.16 (main, Aug 25 2026, 13:50:51) [Clang 22.1.3 ]",
+    "executable": "/tmp/study-simqn-netsquid-check/bin/python",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu_model": "Apple M4",
+    "logical_cpus": 10,
+    "packages": {
+      "qns": "0.2.3",
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "pandas": "3.0.6",
+      "matplotlib": "3.11.2",
+      "netsquid": "1.1.8",
+      "pydynaa": "1.0.2",
+      "cysignals": "1.12.5"
+    },
+    "qns_core": {
+      "qns.simulator.simulator": {
+        "path": "/tmp/study-simqn-netsquid-check/lib/python3.11/site-packages/qns/simulator/simulator.py",
+        "compiled": false
+      },
+      "qns.simulator.ts": {
+        "path": "/tmp/study-simqn-netsquid-check/lib/python3.11/site-packages/qns/simulator/ts.py",
+        "compiled": false
+      },
+      "qns.simulator.pool": {
+        "path": "/tmp/study-simqn-netsquid-check/lib/python3.11/site-packages/qns/simulator/pool.py",
+        "compiled": false
+      }
+    },
+    "start_method": "spawn",
+    "worker_thread_limits": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "started_utc": "2026-10-08T19:32:06.531104+00:00",
+  "skipped": [],
+  "quality_validation": {
+    "passed": true,
+    "conditions": [
+      {
+        "backend": "qubit",
+        "nodes": 2,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "qubit",
+        "nodes": 2,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "werner",
+        "nodes": 2,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "werner",
+        "nodes": 2,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 2,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "werner",
+        "nodes": 2,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "werner",
+        "nodes": 2,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 2,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "qubit",
+        "nodes": 2,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "qubit",
+        "nodes": 2,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9851490049800664,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 10,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 4
+      }
+    ]
+  },
+  "wall_seconds": 5.983931875030976
+}

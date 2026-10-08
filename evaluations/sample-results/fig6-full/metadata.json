@@ -1,0 +1,1452 @@
+{
+  "status": "complete",
+  "config": {
+    "worker_timeout_seconds": 600,
+    "name": "fig6-full",
+    "seed": 2026,
+    "nodes": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50
+    ],
+    "backends": [
+      "qubit",
+      "werner",
+      "netsquid"
+    ],
+    "workers": [
+      1,
+      4
+    ],
+    "duration": 1,
+    "send_rate": 1000,
+    "link_length_km": 10,
+    "speed_km_s": 200000,
+    "depolar_rate": 200,
+    "noise_during_transit": true,
+    "initial_fidelity": 1,
+    "jobs_per_batch": 8,
+    "batch_repeats": 3,
+    "warmup_jobs": 1
+  },
+  "assumptions": {
+    "reproduction": "Source-informed workload, not exact paper timing reproduction.",
+    "nodes": "Figure sweep 5..50. Paper text separately says 10-node chain.",
+    "generation": "Left endpoint generates a Bell pair; right half arrives after distance/speed.",
+    "swapping": "All repeaters BSM at link-ready time; deterministic node-order callbacks, no processing delay.",
+    "classical": "One logical routed BSM message per repeater, delay=remaining hops*link delay; no per-hop forwarding events.",
+    "noise": "Assumed local Bloch contraction exp(-200*t). Both halves accumulate actual transit/storage time. Same DM channel in both simulators.",
+    "werner": "Scalar Werner states in corrected Pauli frame; BSM bits sampled uniformly. No gates simulated on the scalar state.",
+    "resources": "Unlimited round memory, lossless/unlimited channels, no distillation, capacity congestion or retries.",
+    "time": "Main y=batch wall time/job count, subtract warmup barrier span only; startup/IPC/teardown included. Job latency separately reported.",
+    "parallel": "Spawn processes run independent trials; one trial is never partitioned among cores. Native math thread count=1.",
+    "netsquid": "One-worker DM benchmark; optional proprietary dependency. Absent package is skipped, installed import/runtime failure is an error.",
+    "duration": "1s full simulated duration, 8 jobs/batch and 3 batches are assumptions, not paper values.",
+    "uncertainty": "Batch sample SEM for amortized time; per-job latency uses separately labeled job samples."
+  },
+  "environment": {
+    "python": "3.11.16 (main, Aug 25 2026, 13:50:51) [Clang 22.1.3 ]",
+    "executable": "/tmp/study-simqn-netsquid-check/bin/python",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu_model": "Apple M4",
+    "logical_cpus": 10,
+    "packages": {
+      "qns": "0.2.3",
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "pandas": "3.0.6",
+      "matplotlib": "3.11.2",
+      "netsquid": "1.1.8",
+      "pydynaa": "1.0.2",
+      "cysignals": "1.12.5"
+    },
+    "qns_core": {
+      "qns.simulator.simulator": {
+        "path": "/tmp/study-simqn-netsquid-check/lib/python3.11/site-packages/qns/simulator/simulator.py",
+        "compiled": false
+      },
+      "qns.simulator.ts": {
+        "path": "/tmp/study-simqn-netsquid-check/lib/python3.11/site-packages/qns/simulator/ts.py",
+        "compiled": false
+      },
+      "qns.simulator.pool": {
+        "path": "/tmp/study-simqn-netsquid-check/lib/python3.11/site-packages/qns/simulator/pool.py",
+        "compiled": false
+      }
+    },
+    "start_method": "spawn",
+    "worker_thread_limits": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "started_utc": "2026-10-08T19:32:12.833969+00:00",
+  "skipped": [],
+  "quality_validation": {
+    "passed": true,
+    "conditions": [
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 10,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 10,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 15,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 15,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 20,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 20,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 25,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 25,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 30,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 30,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 35,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 35,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 40,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 40,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 45,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 45,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 50,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 50,
+        "workers": 4,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 0,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 10,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 10,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 15,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 15,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 20,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 20,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 25,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 25,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 30,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 30,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 35,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 35,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 40,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 40,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 45,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 45,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 50,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 50,
+        "workers": 4,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 1,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 5,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.9020186765491044,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 10,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 10,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 10,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.7838277420719573,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 15,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 15,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 15,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6870611892804922,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 20,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 20,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 20,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 1000,
+        "expected_fidelity": 0.6078354366407758,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 25,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 25,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 25,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.5429708765188908,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 30,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 30,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 30,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4898642663622279,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 35,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 35,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 35,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.4463842514352445,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 40,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 40,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 40,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 999,
+        "expected_fidelity": 0.41078582607023345,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 45,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 45,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 45,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.38164030046274766,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "netsquid",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "qubit",
+        "nodes": 50,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 50,
+        "workers": 1,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      },
+      {
+        "backend": "werner",
+        "nodes": 50,
+        "workers": 4,
+        "batch": 2,
+        "expected_completed": 998,
+        "expected_fidelity": 0.3577779623332772,
+        "jobs_checked": 8
+      }
+    ]
+  },
+  "wall_seconds": 2782.9134679580457
+}
