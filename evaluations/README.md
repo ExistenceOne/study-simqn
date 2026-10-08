@@ -179,3 +179,93 @@ python -m unittest discover -s tests -v
 150노드 회귀 테스트, 알려진 통계값, 잘못된 config와 실제 CLI 출력까지 검증함.
 기존 입문 예제의 테스트도 함께 실행함. 보존한 코드는 원본 GPL-3.0-or-later이고
 전체 저장소의 [LICENSE](../LICENSE)가 적용됨.
+
+## Fig. 6: 백엔드·독립 실험 병렬 성능
+
+```bash
+# 기본 환경: SimQN 네 곡선. NetSquid 미설치면 metadata에 skipped 기록
+python -m evaluations.run_fig6 --config evaluations/configs/fig6-smoke.json
+python -m evaluations.run_fig6 --config evaluations/configs/fig6-full.json
+```
+
+NetSquid까지 비교하려면 **별도 환경**을 사용함. 포럼 계정이 필요하고 pip의
+인증 프롬프트에 입력함. 인증 정보를 명령 URL·Git 저장소에 넣지 않음.
+NumPy 2.4에서는 NetSquid 1.1.8 import가 실패해서 이 환경은 NumPy 1.26.4로 고정함.
+
+```bash
+uv venv --python 3.11 --seed .venv-netsquid
+.venv-netsquid/bin/python -m pip install \
+  --extra-index-url https://pypi.netsquid.org -r requirements-netsquid.txt
+.venv-netsquid/bin/python -m evaluations.run_fig6 \
+  --config evaluations/configs/fig6-smoke.json --require-netsquid
+.venv-netsquid/bin/python -m evaluations.run_fig6 \
+  --config evaluations/configs/fig6-full.json --require-netsquid
+```
+
+세 backend를 같은 Python·NumPy·장비에서 측정해야 비교가 성립함.
+이 환경에는 원래 NumPy 2를 고정한 `requirements.txt`를 함께 설치하지 않음.
+실제로 검증한 환경은 macOS ARM64·Python 3.11임. 다른 플랫폼의 NetSquid 설치는
+패키지 서버의 해당 wheel 지원 여부를 별도로 확인해야 함.
+NetSquid의 코드는 재배포하지 않으며 adapter만 이 저장소에 포함함.
+설치돼 있는 NetSquid가 import나 실행에 실패하면 실험 전체를 failed로 처리함.
+
+### 동일 workload와 추가 가정
+
+원문의 인접 거리 10 km, 전파 속도 200,000 km/s, 링크 생성 1 kHz,
+큐비트 depolarizing rate 200을 사용함. 노드 수는 그림의 5·10·…·50임.
+본문의 10노드 조건도 포함함. 생성 위치·초기 충실도 1·전송 중 잡음 적용·
+무제한 메모리/대역폭·손실 0·1초 simulated duration·반복 수는 추가 가정임.
+
+각 라운드의 링크가 준비되면 중계기에서 Bell 측정을 수행하고 목적지에 두 bit를
+보냄. 같은 시각의 측정은 노드 순서대로 CPU에서 실행하되 프로토콜 지연은 추가하지 않음.
+고전 메시지는 남은 홉 수 × 50 μs 뒤 도착하는 **논리적 routed message**로 모델링함.
+고전 채널의 홉별 forwarding 이벤트나 라우팅 탐색 비용은 넣지 않음.
+목적지가 모든 결과를 수신하고 X/Z parity 보정을 적용했을 때 완료로 셈.
+양자 전달도 링크당 실제 이벤트로 구현하지만 entity/channel queue의 별도 비용은 없음.
+
+큐비트·NetSquid는 밀도행렬과 실제 H/CNOT/측정/X/Z 연산을 사용함.
+Werner는 보정된 Pauli frame의 스칼라 w를 곱하고 BSM bit를 균등 표본추출함.
+측정 직후 중계기 큐비트를 제거해 공동 상태는 최대 4큐비트로 유지함.
+모든 노드의 큐비트를 한꺼번에 큰 밀도행렬로 합치는 benchmark는 아님.
+
+잡음은 한 절반의 Bloch 수축을 `exp(-200*t)`로 가정함.
+SimQN 큐비트는 Pauli 각각 확률 `(1-exp(-200*t))/4`, NetSquid는
+`depolarize(prob=1-exp(-200*t))`로 같은 채널을 구현함.
+Werner는 두 절반의 실제 저장·전송 시간 합에 해당하는 감쇠를 적용함.
+qns 기본 `DepolarStorageErrorModel`과 Werner에 같은 rate를 넣는 것과는 다름.
+동일한 seed에서 측정 bit까지 같아야 하는 것은 아니며, 완료 수·완료 시각·
+이벤트 수·보정 후 충실도의 동등성을 검증함.
+각 측정 job의 완료 수·라운드 checksum·평균 충실도를 독립적인 해석식으로 검사함.
+
+### 시간 지표와 출력
+
+전체 설정은 backend/node/worker 조건마다 **8 jobs × 3 batches**임.
+각 process에서 먼저 workload를 1회 warmup하고 barrier 뒤 measured jobs를 실행함.
+수학 라이브러리 thread 수는 1로 제한함. 4-worker는 독립 실험을 실행하는 OS
+프로세스 4개이며, 단일 실험을 분할하거나 물리 코어를 독점하지 않음.
+
+| 파일 | 내용 |
+| --- | --- |
+| `fig6_jobs.csv` | 각 job의 seed·완료 수·충실도·이벤트 수·setup/simulation/job 시간 |
+| `fig6_batches.csv` | 배치별 총시간·startup·warmup·amortized 시간 |
+| `fig6_summary.csv`, `fig6.png` | 배치 시간 / jobs의 평균·표본 SD·SEM; 기본 Fig. 6 비교 |
+| `fig6_job_latency_summary.csv`, `fig6_job_latency.png` | 개별 실험 실행시간 분포; pooled job SEM이며 batch SEM과 다름 |
+| `fig6_speedups.csv`, `fig6_speedup_summary.csv` | 같은 batch seed 목록의 1-worker / 4-worker 시간 비율 |
+| `metadata.json` | 실제 가정·설정·버전·CPU·core 로딩 경로·skip/실패·품질 검사 |
+
+`batch_seconds`는 프로세스 생성부터 종료까지 측정하고 warmup barrier 구간만 뺌.
+프로세스 startup·IPC·teardown 비용은 포함함. `amortized_seconds=batch_seconds/jobs`임.
+`job_seconds`는 개별 프로토콜의 setup + simulation 시간임.
+4-worker의 amortized 시간이 작다고 개별 job latency도 같은 배율로 줄었다고 해석하면 안 됨.
+원문의 시간 측정 범위가 완전히 공개되지 않아 그 y축 정의와 정확히 같다고 주장하지 않음.
+3 batches의 SEM은 8 jobs의 개별 편차로 대체하지 않음. 반복 1회면 SEM은 null임.
+
+smoke는 2/5노드·0.01초·4 jobs·2 batches로 줄임.
+CLI의 `--output`은 빈 폴더만 받고 `--workers 1 4`로 worker 설정을 바꿀 수 있음.
+NetSquid는 원문 비교처럼 1-worker만 실행하며, NetSquid가 포함된 config에는
+1-worker 설정이 필요함. `--require-netsquid`는 미설치 skip을 실패로 바꿈.
+
+Cython은 같은 CLI를 기존 [별도 빌드 환경](../docs/cython-build.md)에서 실행할 수 있음.
+metadata의 `qns_core`에 실제 컴파일 모듈 여부를 기록함. 원문 Fig. 6의 Cython
+빌드 여부가 불명확하므로 Python 코어 결과와 별도 조건으로 해석함.
+논문의 속도 배율은 이 실험의 합격 기준이 아니며 느려지는 결과도 그대로 보존함.

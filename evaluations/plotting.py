@@ -75,3 +75,22 @@ def plot_fig5(rows, output, profile):
     ax.legend()
     fig.savefig(output, dpi=160)
     plt.close(fig)
+
+
+def plot_fig6(rows, path, metric):
+    fig, ax = plt.subplots(figsize=(7.2, 4.6), layout='constrained')
+    names = {'qubit': 'SimQN qubit', 'werner': 'SimQN Werner', 'netsquid': 'NetSquid DM'}
+    for backend, workers in sorted({(r['backend'], r['workers']) for r in rows}):
+        points = sorted([r for r in rows if (r['backend'], r['workers']) == (backend, workers)],
+                        key=lambda r: r['nodes'])
+        ax.errorbar([r['nodes'] for r in points], [r[f'{metric}_mean'] for r in points],
+                    yerr=[r[f'{metric}_sem'] or 0 for r in points], capsize=3, marker='o',
+                    label=f'{names[backend]} ({workers} process{"es" if workers != 1 else ""})')
+    ax.set(xlabel='Nodes in linear chain',
+           ylabel='Batch wall time / jobs (s)' if metric == 'amortized_seconds'
+           else 'Individual job wall time (s)',
+           title='Fig. 6 workload | measured times, mean + SEM')
+    ax.grid(alpha=.3)
+    ax.legend(fontsize=8)
+    fig.savefig(path, dpi=160)
+    plt.close(fig)

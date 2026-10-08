@@ -1,0 +1,27 @@
+{
+  "name": "fig6-smoke",
+  "seed": 2026,
+  "nodes": [
+    2,
+    5
+  ],
+  "backends": [
+    "qubit",
+    "werner",
+    "netsquid"
+  ],
+  "workers": [
+    1,
+    4
+  ],
+  "duration": 0.01,
+  "send_rate": 1000,
+  "link_length_km": 10,
+  "speed_km_s": 200000,
+  "depolar_rate": 200,
+  "noise_during_transit": true,
+  "initial_fidelity": 1,
+  "jobs_per_batch": 4,
+  "batch_repeats": 2,
+  "warmup_jobs": 1
+}

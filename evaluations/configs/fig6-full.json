@@ -1,0 +1,35 @@
+{
+  "name": "fig6-full",
+  "seed": 2026,
+  "nodes": [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50
+  ],
+  "backends": [
+    "qubit",
+    "werner",
+    "netsquid"
+  ],
+  "workers": [
+    1,
+    4
+  ],
+  "duration": 1,
+  "send_rate": 1000,
+  "link_length_km": 10,
+  "speed_km_s": 200000,
+  "depolar_rate": 200,
+  "noise_during_transit": true,
+  "initial_fidelity": 1,
+  "jobs_per_batch": 8,
+  "batch_repeats": 3,
+  "warmup_jobs": 1
+}

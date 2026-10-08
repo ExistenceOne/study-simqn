@@ -1,0 +1,10 @@
+# Separate optional environment; do not combine with requirements.txt (NumPy 2).
+# Authentication to https://pypi.netsquid.org is supplied locally to pip.
+qns==0.2.3
+numpy==1.26.4
+scipy==1.17.1
+pandas==3.0.6
+matplotlib==3.11.2
+netsquid==1.1.8
+pydynaa==1.0.2
+cysignals==1.12.5
