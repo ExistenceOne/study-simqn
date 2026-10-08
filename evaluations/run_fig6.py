@@ -86,6 +86,8 @@ def validate(config):
         ("warmup_jobs", 0, 10),
     ]:
         number(key, lo, hi, True)
+    if "worker_timeout_seconds" in config:
+        number("worker_timeout_seconds", 0.1, 86400)
     if not isinstance(config["noise_during_transit"], bool):
         raise ValueError("noise_during_transit: boolean required")  # noqa: TRY004
     for key in ["nodes", "workers", "backends"]:
@@ -232,6 +234,7 @@ def speedup_rows(batches):
 
 
 def run(config, output, require_netsquid=False):
+    config = {"worker_timeout_seconds": 600, **config}
     validate(config)
     output = Path(output)
     if output.exists() and any(output.iterdir()):

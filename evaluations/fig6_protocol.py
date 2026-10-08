@@ -30,6 +30,10 @@ class CallbackEvent(Event):
 class SimQNScheduler:
     def __init__(self, end):
         self.sim = Simulator(0, end / TICKS, accuracy=TICKS)
+        # qns converts seconds to slots by truncation. Reapply the exact bound
+        # so e.g. 1005 ns cannot become 1004 ns through float multiplication.
+        self.sim.te = self.sim.time(time_slot=end)
+        self.sim.event_pool.te = self.sim.te
         self.order = 0
         self.event_count = 0
         self.end = end

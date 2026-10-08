@@ -193,12 +193,12 @@ NetSquid까지 비교하려면 **별도 환경**을 사용함. 포럼 계정이 
 NumPy 2.4에서는 NetSquid 1.1.8 import가 실패해서 이 환경은 NumPy 1.26.4로 고정함.
 
 ```bash
-uv venv --python 3.11 --seed .venv-netsquid
-.venv-netsquid/bin/python -m pip install \
+uv venv --python 3.11 --seed /tmp/study-simqn-netsquid
+/tmp/study-simqn-netsquid/bin/python -m pip install \
   --extra-index-url https://pypi.netsquid.org -r requirements-netsquid.txt
-.venv-netsquid/bin/python -m evaluations.run_fig6 \
+/tmp/study-simqn-netsquid/bin/python -m evaluations.run_fig6 \
   --config evaluations/configs/fig6-smoke.json --require-netsquid
-.venv-netsquid/bin/python -m evaluations.run_fig6 \
+/tmp/study-simqn-netsquid/bin/python -m evaluations.run_fig6 \
   --config evaluations/configs/fig6-full.json --require-netsquid
 ```
 
@@ -269,3 +269,9 @@ Cython은 같은 CLI를 기존 [별도 빌드 환경](../docs/cython-build.md)�
 metadata의 `qns_core`에 실제 컴파일 모듈 여부를 기록함. 원문 Fig. 6의 Cython
 빌드 여부가 불명확하므로 Python 코어 결과와 별도 조건으로 해석함.
 논문의 속도 배율은 이 실험의 합격 기준이 아니며 느려지는 결과도 그대로 보존함.
+
+각 startup/warmup barrier와 measured batch의 대기 제한은 기본 600초임.
+`worker_timeout_seconds`로 바꿀 수 있음. timeout·worker 실패·사용자 중단이면
+실행 중인 process를 종료하고 failed metadata를 기록함.
+모든 backend의 초기 import 비용은 startup에 포함함. warmup 실행 시간만 제외함.
+별도 NetSquid 환경 경로는 `/tmp`의 임시 위치이며 지워지면 같은 명령으로 재생성함.

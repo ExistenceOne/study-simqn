@@ -99,3 +99,14 @@ class Fig6ProtocolTests(unittest.TestCase):
                 self.assertAlmostEqual(a, b, places=9)
             for a, b in zip(net["completion_fidelities"], q["completion_fidelities"]):
                 self.assertAlmostEqual(a, b, places=10)
+
+    def test_exact_integer_nanosecond_boundary_is_included(self):
+        run = self.runner()
+        settings = {**SETTINGS, "duration": 1005e-9, "link_length_km": 0.201}
+        names = ["qubit", "werner"]
+        if importlib.util.find_spec("netsquid"):
+            names.append("netsquid")
+        for name in names:
+            result = run(name, 2, settings, 42)
+            self.assertEqual(result["completed_pairs"], 1, name)
+            self.assertEqual(result["completion_times"], [1005e-9])

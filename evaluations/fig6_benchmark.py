@@ -39,9 +39,11 @@ def ordered_jobs(rows, expected):
 
 def _initialize(backend, nodes, settings, signals, start_warmup, start_jobs):
     # Every process warms up once before any measured job starts. Import costs
-    # before the ready signal count as startup; lazy NetSquid import is warmup.
+    # for every backend belong to startup, before the warmup barrier.
+    from evaluations.fig6_backends import make_backend
     from evaluations.fig6_protocol import run_trial
 
+    make_backend(backend, settings, seed=0)
     signals.put(("ready", None))
     start_warmup.wait()
     try:
@@ -80,8 +82,8 @@ def _job(backend, nodes, settings, seed, index):
     }
 
 
-def _wait_signals(signals, futures, kind, count):
-    deadline = time.monotonic() + 600
+def _wait_signals(signals, futures, kind, count, timeout=600):
+    deadline = time.monotonic() + timeout
     for _ in range(count):
         while True:
             if time.monotonic() > deadline:
@@ -100,6 +102,21 @@ def _wait_signals(signals, futures, kind, count):
             if label != kind:
                 raise RuntimeError(f"worker barrier: expected {kind}, got {label}")
             break
+
+
+def _abort_pool(pool):
+    # Python 3.11/3.12 have no public terminate_workers API. Capture the
+    # multiprocessing.Process objects before shutdown clears the mapping.
+    processes = list((pool._processes or {}).values())
+    for process in processes:
+        if process.is_alive():
+            process.terminate()
+    pool.shutdown(wait=False, cancel_futures=True)
+    for process in processes:
+        process.join(timeout=1)
+        if process.is_alive():
+            process.kill()
+            process.join(timeout=1)
 
 
 def run_batch(
@@ -128,13 +145,25 @@ def run_batch(
             pool.submit(_job, backend, nodes, settings, seed, index)
             for index, seed in enumerate(seeds)
         ]
-        _wait_signals(signals, futures, "ready", workers)
+        timeout = settings.get("worker_timeout_seconds", 600)
+        _wait_signals(signals, futures, "ready", workers, timeout)
         warmup_start = time.perf_counter_ns()
         start_warmup.set()
-        _wait_signals(signals, futures, "warm", workers)
+        _wait_signals(signals, futures, "warm", workers, timeout)
         warmup_end = time.perf_counter_ns()
         start_jobs.set()
-        rows = ordered_jobs([future.result() for future in futures], len(seeds))
+        deadline = time.monotonic() + timeout
+        records = []
+        for index, future in enumerate(futures):
+            try:
+                records.append(
+                    future.result(timeout=max(0, deadline - time.monotonic()))
+                )
+            except TimeoutError as error:
+                raise RuntimeError(
+                    f"job batch timed out waiting for job {index}"
+                ) from error
+        rows = ordered_jobs(records, len(seeds))
         pool.shutdown(wait=True)
         pool = None
         stop = time.perf_counter_ns()
@@ -152,7 +181,7 @@ def run_batch(
         start_warmup.set()
         start_jobs.set()
         if pool is not None:
-            pool.shutdown(wait=True, cancel_futures=True)
+            _abort_pool(pool)
         signals.close()
         signals.join_thread()
         for name, value in previous.items():

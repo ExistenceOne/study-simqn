@@ -105,6 +105,7 @@ class Fig6CliTests(unittest.TestCase):
             ("noise_during_transit", "true"),
             ("send_rate", 0),
             ("seed", -1),
+            ("worker_timeout_seconds", 0),
         ]:
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 validate({**cfg, key: value})
@@ -191,3 +192,95 @@ class Fig6CliTests(unittest.TestCase):
             d = json.loads((Path(directory) / "metadata.json").read_text())
             self.assertEqual(d["status"], "failed")
             self.assertIn("KeyboardInterrupt", d["error"])
+
+
+def sleepy_initializer(*args):
+    import time
+
+    time.sleep(5)
+
+
+class Fig6LifecycleTests(unittest.TestCase):
+    def test_barrier_failure_terminates_running_initializer(self):
+        import time
+        from concurrent.futures import ProcessPoolExecutor
+        from unittest.mock import patch
+
+        from evaluations.fig6_benchmark import run_batch
+
+        def pool_factory(**kwargs):
+            return ProcessPoolExecutor(**{**kwargs, "initializer": sleepy_initializer})
+
+        start = time.monotonic()
+        with (
+            patch(
+                "evaluations.fig6_benchmark.ProcessPoolExecutor",
+                side_effect=pool_factory,
+            ),
+            patch(
+                "evaluations.fig6_benchmark._wait_signals",
+                side_effect=RuntimeError("barrier timed out"),
+            ),
+            self.assertRaisesRegex(RuntimeError, "timed out"),
+        ):
+            run_batch("qubit", 4, SETTINGS, [42], 1)
+        self.assertLess(time.monotonic() - start, 4)
+
+    @unittest.skipUnless(
+        importlib.util.find_spec("netsquid"), "Optional NetSquid environment"
+    )
+    def test_netsquid_import_precedes_warmup_barrier(self):
+        import subprocess
+        import sys
+
+        code = """
+import multiprocessing as mp, sys
+from evaluations.fig6_benchmark import _initialize
+class Signals:
+    def put(self, message):
+        if message[0] == 'ready':
+            assert 'netsquid' in sys.modules, 'NetSquid import excluded from startup'
+start, jobs = mp.Event(), mp.Event()
+start.set(); jobs.set()
+settings = dict(duration=.001, send_rate=1000, link_length_km=10,
+                speed_km_s=200000, depolar_rate=200,
+                noise_during_transit=True, initial_fidelity=1, warmup_jobs=0)
+_initialize('netsquid', 2, settings, Signals(), start, jobs)
+"""
+        result = subprocess.run(
+            [sys.executable, "-c", code],
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+
+def sleepy_job(*args):
+    import time
+
+    time.sleep(5)
+    return {"job_index": 0}
+
+
+class Fig6JobDeadlineTests(unittest.TestCase):
+    def test_job_deadline_terminates_running_job(self):
+        import time
+        from unittest.mock import patch
+
+        from evaluations.fig6_benchmark import run_batch
+
+        start = time.monotonic()
+        with (
+            patch("evaluations.fig6_benchmark._job", new=sleepy_job),
+            self.assertRaisesRegex(RuntimeError, "job|worker"),
+        ):
+            run_batch(
+                "qubit",
+                2,
+                {**SETTINGS, "warmup_jobs": 0, "worker_timeout_seconds": 0.5},
+                [42],
+                1,
+            )
+        self.assertLess(time.monotonic() - start, 4)
